@@ -1,0 +1,755 @@
+{
+ "type": "FeatureCollection",
+ "name": "erosion_vulnerable_locations_2026",
+ "note": "CEGIS 2026 erosion-vulnerable locations along the Jamuna, Ganges & Padma. Markers = site centroids; footprints = Mir's drawn AOI boxes. For the Section-3 interactive map.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL01",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Raumari",
+    "district": "Kurigram",
+    "site_name": "Char Saulmari & Bagua Banshdaha",
+    "note": "Kurigram: ~106 ha land & ~31 ha settlement at risk (2026); 2 mosques",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.78592,
+     25.64319
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL01",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Raumari",
+    "district": "Kurigram",
+    "site_name": "Char Saulmari & Bagua Banshdaha",
+    "note": "Kurigram: ~106 ha land & ~31 ha settlement at risk (2026); 2 mosques",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.7737,
+       25.62896
+      ],
+      [
+       89.79814,
+       25.62896
+      ],
+      [
+       89.79814,
+       25.65743
+      ],
+      [
+       89.7737,
+       25.65743
+      ],
+      [
+       89.7737,
+       25.62896
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JR01",
+    "river": "Jamuna",
+    "bank": "Right",
+    "upazila": "Kurigram Sadar",
+    "district": "Kurigram",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.74047,
+     25.82406
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JR01",
+    "river": "Jamuna",
+    "bank": "Right",
+    "upazila": "Kurigram Sadar",
+    "district": "Kurigram",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.73182,
+       25.81676
+      ],
+      [
+       89.74912,
+       25.81676
+      ],
+      [
+       89.74912,
+       25.83135
+      ],
+      [
+       89.73182,
+       25.83135
+      ],
+      [
+       89.73182,
+       25.81676
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JR02",
+    "river": "Jamuna",
+    "bank": "Right",
+    "upazila": "Sundarganj",
+    "district": "Gaibandha",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.64824,
+     25.47962
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JR02",
+    "river": "Jamuna",
+    "bank": "Right",
+    "upazila": "Sundarganj",
+    "district": "Gaibandha",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.63333,
+       25.46787
+      ],
+      [
+       89.66315,
+       25.46787
+      ],
+      [
+       89.66315,
+       25.49136
+      ],
+      [
+       89.63333,
+       25.49136
+      ],
+      [
+       89.63333,
+       25.46787
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JR03",
+    "river": "Jamuna",
+    "bank": "Right",
+    "upazila": "Sundarganj",
+    "district": "Gaibandha",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.635,
+     25.43435
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JR03",
+    "river": "Jamuna",
+    "bank": "Right",
+    "upazila": "Sundarganj",
+    "district": "Gaibandha",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.62023,
+       25.41512
+      ],
+      [
+       89.64977,
+       25.41512
+      ],
+      [
+       89.64977,
+       25.45358
+      ],
+      [
+       89.62023,
+       25.45358
+      ],
+      [
+       89.62023,
+       25.41512
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL02",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Fulchhari",
+    "district": "Gaibandha",
+    "site_name": "",
+    "note": "Gaibandha: worst hit \u2014 ~223 ha land at risk (2026); 2 govt primary schools",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.71864,
+     25.28812
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL02",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Fulchhari",
+    "district": "Gaibandha",
+    "site_name": "",
+    "note": "Gaibandha: worst hit \u2014 ~223 ha land at risk (2026); 2 govt primary schools",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.70562,
+       25.26254
+      ],
+      [
+       89.73166,
+       25.26254
+      ],
+      [
+       89.73166,
+       25.3137
+      ],
+      [
+       89.70562,
+       25.3137
+      ],
+      [
+       89.70562,
+       25.26254
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL03",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Dewanganj",
+    "district": "Jamalpur",
+    "site_name": "",
+    "note": "Jamalpur: 1 mosque + the district's only community clinic at risk",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.72738,
+     25.20902
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL03",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Dewanganj",
+    "district": "Jamalpur",
+    "site_name": "",
+    "note": "Jamalpur: 1 mosque + the district's only community clinic at risk",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.71481,
+       25.19812
+      ],
+      [
+       89.73995,
+       25.19812
+      ],
+      [
+       89.73995,
+       25.21991
+      ],
+      [
+       89.71481,
+       25.21991
+      ],
+      [
+       89.71481,
+       25.19812
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL04",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Kazipur",
+    "district": "Sirajganj",
+    "site_name": "",
+    "note": "Sirajganj: ~83 ha land at risk (2026)",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.74715,
+     24.70298
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "JL04",
+    "river": "Jamuna",
+    "bank": "Left",
+    "upazila": "Kazipur",
+    "district": "Sirajganj",
+    "site_name": "",
+    "note": "Sirajganj: ~83 ha land at risk (2026)",
+    "river_eroded_2025_ha": 348,
+    "river_land_2026_ha": 460,
+    "river_settlement_2026_ha": 64,
+    "river_locations_2026": 7,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.7305,
+       24.68563
+      ],
+      [
+       89.7638,
+       24.68563
+      ],
+      [
+       89.7638,
+       24.72034
+      ],
+      [
+       89.7305,
+       24.72034
+      ],
+      [
+       89.7305,
+       24.68563
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "GR01",
+    "river": "Ganges",
+    "bank": "Right",
+    "upazila": "Daulatpur",
+    "district": "Kushtia",
+    "site_name": "Koldiar",
+    "note": "Kushtia: ~105 ha land, 5 ha settlement, 1 high school at risk (2026)",
+    "river_eroded_2025_ha": 593,
+    "river_land_2026_ha": 320,
+    "river_settlement_2026_ha": 5,
+    "river_locations_2026": 3,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     88.90185,
+     24.08481
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "GR01",
+    "river": "Ganges",
+    "bank": "Right",
+    "upazila": "Daulatpur",
+    "district": "Kushtia",
+    "site_name": "Koldiar",
+    "note": "Kushtia: ~105 ha land, 5 ha settlement, 1 high school at risk (2026)",
+    "river_eroded_2025_ha": 593,
+    "river_land_2026_ha": 320,
+    "river_settlement_2026_ha": 5,
+    "river_locations_2026": 3,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       88.87858,
+       24.068
+      ],
+      [
+       88.92513,
+       24.068
+      ],
+      [
+       88.92513,
+       24.10163
+      ],
+      [
+       88.87858,
+       24.10163
+      ],
+      [
+       88.87858,
+       24.068
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "GL01",
+    "river": "Ganges",
+    "bank": "Left",
+    "upazila": "Ishwardi / Pabna Sadar / Kushtia Sadar",
+    "district": "Pabna & Kushtia",
+    "site_name": "",
+    "note": "Pabna: ~215 ha land at risk (2026)",
+    "river_eroded_2025_ha": 593,
+    "river_land_2026_ha": 320,
+    "river_settlement_2026_ha": 5,
+    "river_locations_2026": 3,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.15394,
+     23.95576
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "GL01",
+    "river": "Ganges",
+    "bank": "Left",
+    "upazila": "Ishwardi / Pabna Sadar / Kushtia Sadar",
+    "district": "Pabna & Kushtia",
+    "site_name": "",
+    "note": "Pabna: ~215 ha land at risk (2026)",
+    "river_eroded_2025_ha": 593,
+    "river_land_2026_ha": 320,
+    "river_settlement_2026_ha": 5,
+    "river_locations_2026": 3,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.11458,
+       23.9351
+      ],
+      [
+       89.19331,
+       23.9351
+      ],
+      [
+       89.19331,
+       23.97642
+      ],
+      [
+       89.11458,
+       23.97642
+      ],
+      [
+       89.11458,
+       23.9351
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "GL02",
+    "river": "Ganges",
+    "bank": "Left",
+    "upazila": "Sujanagar",
+    "district": "Pabna",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 593,
+    "river_land_2026_ha": 320,
+    "river_settlement_2026_ha": 5,
+    "river_locations_2026": 3,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     89.42143,
+     23.8949
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "GL02",
+    "river": "Ganges",
+    "bank": "Left",
+    "upazila": "Sujanagar",
+    "district": "Pabna",
+    "site_name": "",
+    "note": "",
+    "river_eroded_2025_ha": 593,
+    "river_land_2026_ha": 320,
+    "river_settlement_2026_ha": 5,
+    "river_locations_2026": 3,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       89.39965,
+       23.87689
+      ],
+      [
+       89.44321,
+       23.87689
+      ],
+      [
+       89.44321,
+       23.91291
+      ],
+      [
+       89.39965,
+       23.91291
+      ],
+      [
+       89.39965,
+       23.87689
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "PR01",
+    "river": "Padma",
+    "bank": "Right",
+    "upazila": "Sadarpur",
+    "district": "Faridpur",
+    "site_name": "Akter Char & Dheukhali",
+    "note": "Faridpur: ~135 ha land & 4 ha settlement at risk (2026) \u2014 more than the whole Padma lost in all of 2025",
+    "river_eroded_2025_ha": 93,
+    "river_land_2026_ha": 135,
+    "river_settlement_2026_ha": 4,
+    "river_locations_2026": 1,
+    "geom_role": "marker"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     90.07532,
+     23.50969
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "PR01",
+    "river": "Padma",
+    "bank": "Right",
+    "upazila": "Sadarpur",
+    "district": "Faridpur",
+    "site_name": "Akter Char & Dheukhali",
+    "note": "Faridpur: ~135 ha land & 4 ha settlement at risk (2026) \u2014 more than the whole Padma lost in all of 2025",
+    "river_eroded_2025_ha": 93,
+    "river_land_2026_ha": 135,
+    "river_settlement_2026_ha": 4,
+    "river_locations_2026": 1,
+    "geom_role": "footprint"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       90.03686,
+       23.46899
+      ],
+      [
+       90.11379,
+       23.46899
+      ],
+      [
+       90.11379,
+       23.55039
+      ],
+      [
+       90.03686,
+       23.55039
+      ],
+      [
+       90.03686,
+       23.46899
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}
