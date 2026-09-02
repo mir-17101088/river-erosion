@@ -60,7 +60,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="css/styles.css?v=4" />
+  <link rel="stylesheet" href="css/styles.css?v=5" />
 </head>
 
 <body data-scroll="top">
@@ -359,29 +359,32 @@
           will bite next. For 2026 it names eleven places, and puts numbers on them.</p>
       </div>
 
-      <!-- 2026 risk breakdown (A5) -->
+      <!-- 2026 risk breakdown (A5) — bento: a prominent lead + supporting stats -->
       <div class="riskstats wrap">
         <div class="riskstat riskstat--lead">
-          <p class="riskstat__fig"><span data-count="915">915</span> <em>ha</em></p>
-          <p class="riskstat__lbl">of land forecast to erode in 2026</p>
+          <p class="riskstat__kicker">CEGIS forecast &middot; 2026</p>
+          <div class="riskstat__body">
+            <p class="riskstat__fig"><span data-count="915">915</span> <em>ha</em></p>
+            <p class="riskstat__lbl">of land forecast to erode this year, across eleven reaches on three rivers</p>
+          </div>
         </div>
-        <div class="riskstat">
+        <div class="riskstat riskstat--s73">
           <p class="riskstat__fig"><span data-count="73">73</span> <em>ha</em></p>
-          <p class="riskstat__lbl">of settlement at risk</p>
+          <p class="riskstat__lbl">of settlement at&nbsp;risk</p>
         </div>
-        <div class="riskstat">
+        <div class="riskstat riskstat--s11">
           <p class="riskstat__fig"><span data-count="11">11</span></p>
           <p class="riskstat__lbl">vulnerable locations</p>
         </div>
-        <div class="riskstat">
+        <div class="riskstat riskstat--mosq">
           <p class="riskstat__fig"><span data-count="3">3</span></p>
           <p class="riskstat__lbl">mosques</p>
         </div>
-        <div class="riskstat">
+        <div class="riskstat riskstat--sch">
           <p class="riskstat__fig"><span data-count="3">3</span></p>
           <p class="riskstat__lbl">schools</p>
         </div>
-        <div class="riskstat">
+        <div class="riskstat riskstat--clin">
           <p class="riskstat__fig"><span data-count="1">1</span></p>
           <p class="riskstat__lbl">community clinic</p>
         </div>
@@ -633,7 +636,7 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="js/main.js?v=4" defer></script>
+  <script src="js/main.js?v=5" defer></script>
 </body>
 
 </html>

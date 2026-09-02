@@ -252,18 +252,21 @@
     });
     map.getContainer().setAttribute('tabindex', '0');
 
-    // detectRetina: on 2x/3x screens Leaflet requests one zoom level deeper and
-    // renders it at half size, so the imagery stays sharp when zoomed into a site
-    // (256px raster tiles otherwise upscale and look blurry on high-DPI displays).
+    // Esri imagery. detectRetina fetches one zoom level deeper on 2x/3x screens
+    // (rendered at half size) so the imagery stays sharp when zoomed into a site.
+    // keepBuffer holds a wide ring of loaded tiles so the full-bleed frame is fully
+    // covered after a flyTo — without it the uncovered edges fell back to upscaled
+    // low-zoom parent tiles (the soft/blurry patches). updateWhenZooming stays at its
+    // default (true) so the grid keeps loading through the fly and lands fully covered.
     L.tileLayer(
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      { attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics', maxZoom: 17, detectRetina: true, updateWhenZooming: false, keepBuffer: 4 }
+      { attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics', maxZoom: 17, detectRetina: true, keepBuffer: 6 }
     ).addTo(map);
     // faint place labels for orientation — {r} pulls CARTO's native @2x tiles on
     // high-DPI screens (no detectRetina here, or it would double up with {r})
     L.tileLayer(
       'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_only_labels/{z}/{x}/{y}{r}.png',
-      { attribution: '&copy; OpenStreetMap, &copy; CARTO', opacity: 0.55, maxZoom: 19, updateWhenZooming: false }
+      { attribution: '&copy; OpenStreetMap, &copy; CARTO', opacity: 0.55, maxZoom: 19, keepBuffer: 6 }
     ).addTo(map);
 
     var siteList = document.getElementById('sitelist');
@@ -363,7 +366,7 @@
             '</button>';
           li.querySelector('button').addEventListener('click', function () {
             closeMenu();
-            map.flyTo(ll, 12, { duration: 0.9 });
+            map.flyTo(ll, 13, { duration: 0.9 });
             m.openPopup();
             highlight(p.id);
           });
@@ -484,6 +487,9 @@
       return { g: g, big: t1, sub: t2 };
     }
     var labels = { dhaka: addLabel(), gross: addLabel(), jamuna: addLabel(), ganges: addLabel(), padma: addLabel() };
+    // the "6× Dhaka" caption gets a bigger, warm, hard-to-miss treatment
+    labels.gross.big.setAttribute('class', 'mlabel__big mlabel__big--hero');
+    labels.gross.sub.setAttribute('class', 'mlabel__sub mlabel__sub--hero');
 
     var rivers = null, marks = [];
     function rKm(areaKm2) { return Math.sqrt(areaKm2 / Math.PI); }
@@ -525,12 +531,16 @@
       var p = project(pts[idx]);
       chips[name].style.left = p.x + 'px'; chips[name].style.top = p.y + 'px';
     }
-    function placeLabel(lab, p, big, sub, mode, r) {
-      var yBig = (mode === 'above') ? (p.y - r - 12) : (p.y - 3);
+    function placeLabel(lab, p, big, sub, mode, r, opts) {
+      opts = opts || {};
+      var bigSize = opts.bigSize || (mode === 'above' ? 15 : 17);
+      var subSize = opts.subSize || 11.5;
+      var gap = opts.gap || (bigSize + 4);
+      var yBig = (mode === 'above') ? (p.y - r - 14) : (p.y - 3);
       lab.big.setAttribute('x', p.x); lab.big.setAttribute('y', yBig); lab.big.textContent = big;
-      lab.big.setAttribute('font-size', mode === 'above' ? 15 : 17);
-      lab.sub.setAttribute('x', p.x); lab.sub.setAttribute('y', yBig + 16); lab.sub.textContent = sub;
-      lab.sub.setAttribute('font-size', 11.5);
+      lab.big.setAttribute('font-size', bigSize);
+      lab.sub.setAttribute('x', p.x); lab.sub.setAttribute('y', yBig + gap); lab.sub.textContent = sub;
+      lab.sub.setAttribute('font-size', subSize);
     }
 
     function layout() {
@@ -563,8 +573,8 @@
       var net2 = (sceneNow === 'dhaka' && stateNow === '2');
       placeLabel(labels.gross, dc,
         net2 ? '4× Dhaka, net' : '6× Dhaka',
-        net2 ? '1,153 km² lost after chars return' : '1,585 km² eroded in fifty years',
-        'above', rGross);
+        net2 ? '1,153 km² lost after the chars return' : '1,585 km² eroded in fifty years',
+        'above', rGross, { bigSize: 21, subSize: 15.5, gap: 26 });
       placeLabel(labels.dhaka, dc, 'Dhaka', '270 km²', 'center', 0);
 
       // Share proportional circles (area ∝ hectares eroded), near each river, clear of the card
