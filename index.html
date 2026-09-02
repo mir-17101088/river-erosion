@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#161c17" />
+
+  <title>Rivers that move: riverbank erosion in Bangladesh | The Daily Star</title>
+  <meta name="description"
+    content="Riverbank erosion has erased land six times the size of Dhaka in five decades, displacing millions along the Jamuna, Ganges and Padma. A Daily Star visual investigation with CEGIS data, satellite imagery and the 2026 forecast of where the rivers will bite next." />
+  <meta name="keywords"
+    content="riverbank erosion, Bangladesh, Jamuna, Ganges, Padma, Brahmaputra, CEGIS, river erosion prediction 2026, displacement, char land, climate displacement, Dhaka slums, Bholar Basti, satellite imagery, data journalism, The Daily Star" />
+  <meta name="news_keywords"
+    content="riverbank erosion, Bangladesh, Jamuna, Ganges, Padma, CEGIS, displacement, climate change" />
+  <meta name="author" content="The Daily Star" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://campaign.thedailystar.net/river-erosion/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="The Daily Star" />
+  <meta property="og:url" content="https://campaign.thedailystar.net/river-erosion/" />
+  <meta property="og:title" content="Rivers have erased land six times the size of Dhaka in five decades" />
+  <meta property="og:description"
+    content="As riverbanks shift, families are displaced again and again, many into the capital's slums. A Daily Star visual investigation with CEGIS data, satellite imagery and the 2026 erosion forecast." />
+  <meta property="og:image" content="https://campaign.thedailystar.net/river-erosion/assets/og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://campaign.thedailystar.net/river-erosion/assets/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="839" />
+  <meta property="og:image:height" content="559" />
+  <meta property="og:image:alt"
+    content="Satellite view of a braided river channel shifting across the Bangladesh floodplain." />
+  <meta property="og:locale" content="en_US" />
+  <meta property="article:published_time" content="2026-09-05T09:00:00+06:00" />
+  <meta property="article:author" content="Pinaki Roy" />
+  <meta property="article:section" content="Environment" />
+  <meta property="article:tag" content="Riverbank erosion" />
+  <meta property="article:tag" content="Bangladesh" />
+  <meta property="article:tag" content="Climate displacement" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@dailystarnews" />
+  <meta name="twitter:title" content="Rivers have erased land six times the size of Dhaka in five decades" />
+  <meta name="twitter:description"
+    content="As riverbanks shift, families are displaced again and again, many into the capital's slums. A Daily Star visual investigation." />
+  <meta name="twitter:image" content="https://campaign.thedailystar.net/river-erosion/assets/og-image.jpg" />
+  <meta name="twitter:image:alt"
+    content="Satellite view of a braided river channel shifting across the Bangladesh floodplain." />
+
+  <!-- Fonts: Newsreader (editorial serif) + IBM Plex Sans/Mono (labels + figures). Desk note: self-host for production. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap"
+    rel="stylesheet" />
+
+  <!-- Leaflet (interactive index map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <link rel="stylesheet" href="css/styles.css?v=4" />
+</head>
+
+<body data-scroll="top">
+
+  <!-- Reading progress (zero-JS, CSS scroll-timeline where supported) -->
+  <div class="reading-progress" aria-hidden="true"><span class="reading-progress__fill"></span></div>
+
+  <!-- SVG sprite: The Daily Star wordmark, recolourable via currentColor. Injected at build. -->
+  <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false">
+    <symbol id="tds-logo" viewBox="0 0 321.41 63.84">
+      <g data-name="Layer 2">
+        <path
+          d="M310.21 36v11.2c0 .61.2 1.55 2.49 2.06.08 1.25-4 4.49-5 4.15-1.67-.68-2.2-3.64-4.1-3.14-.27 0-.51-.6-.42-1 .61-.51 1.75-1.16 1.78-2.06V33a1.74 1.74 0 0 0-2-1.65c-.57.19-1.37-.23-.41-1a29.5 29.5 0 0 1 3.29-2.79c2-1.55 4.39 2.5 4.39 3.58v.58c.29 1 5.1-5.87 6.14-4.24A12.3 12.3 0 0 0 321 31c.76.28.35.84-.2 1.2-1.14.46-2.66 2-4.07 2-2 0-3.67-1.2-5.16-.18a2.64 2.64 0 0 0-1.35 2Zm-24.66 17.48c1.43 0 7.6-5 7.85-3.84s2.66 4.31 4.15 3.79a9.9 9.9 0 0 0 2.71-2.16c2-2-1.61-2.19-2-5.29V33.72c0-.71 1.39-2 1.64-2.34.39-.58-.32-.75-1.53-1.64a9.6 9.6 0 0 1-1.92-2.08c-.38-.45-.93-.93-1.61-.05-1.48 1.66-8.32 5.28-8.13 4.06 0-1.27-.35-3.65-2.06-4.11-2.72-.73-4.07 1.58-3.41 3.66.8 2.54 3.07 4.32 4.85 6.1.52.55.54.72-.09 1.17-2.92 2.58-6.81 4.49-6.84 9.23 0 3.72 4.16 5.66 6.37 5.76Zm2.19-4.31a3.36 3.36 0 0 1-3.34-2.79 7.09 7.09 0 0 1 3.45-6.61c.33-.33 1.27.73 1.54.94 1.19.94 1.51.3.82-.67-1-1.41-1.93-2.8-2.95-4.13-.32-.47-.68-1.6-.32-1.8 2-1 6.14-3.2 6.12-.18v11.32c0 1.68-4 4-5.32 3.92m-149 4.31c-2.21-.1-6.38-2-6.37-5.76 0-4.74 3.92-6.65 6.84-9.23.63-.45.6-.62.09-1.17-1.78-1.78-4-3.56-4.85-6.1-.66-2.08.69-4.39 3.41-3.66 1.71.46 2 2.84 2.06 4.11-.19 1.22 6.65-2.4 8.13-4.06.68-.88 1.23-.4 1.61.05a9.6 9.6 0 0 0 1.92 2.08c1.21.89 1.92 1.06 1.53 1.64-.25.38-1.66 1.63-1.64 2.34V46c.37 3.1 4 3.29 2 5.29a9.9 9.9 0 0 1-2.71 2.16c-1.49.52-3.85-2.59-4.15-3.79s-6.42 3.79-7.85 3.84Zm2.19-4.31c1.35 0 5.36-2.24 5.32-3.92V33.93c0-3-4.08-.8-6.12.18-.36.2 0 1.33.32 1.8 1 1.33 1.94 2.72 2.95 4.13.69 1 .37 1.61-.82.67-.27-.21-1.21-1.27-1.54-.94a7.09 7.09 0 0 0-3.45 6.61 3.36 3.36 0 0 0 3.34 2.79m-48.55 10.6c-2.68-3-1.85-9.16 2.45-12.36a17.41 17.41 0 0 1 14.92-2.57V13.08c-4.29.65-9.18 1.14-13.23-.66a7.16 7.16 0 0 1-4.17-5.31c-.29-2.55.47-1 .81-.39 3.25 3.57 7.74 2.24 12 1.45 5-.93 11.27-2.49 16.39-1.72 4.35.65 7.85 4.13 7.86 8.44V43.8c.24 1.43 1.32 2.19.57 3.41-.46.84-4-1.25-9.19 1.4a34.2 34.2 0 0 0-6.92 5.31c-.76.84-4.49-3.5-8.36-4.24s-9.09-.06-11.28 3.32c-4.88 7.58 8.22 12.41 14.77 5 1-1.11 2.07.1 1 1-5.28 4.38-12.88 6-17.57.79Zm24.9-11.72c1 0 6.17-2.15 6.17-4v-6.41c0-1.1-1.84-2.44-5.81-2.39-5.78.07-5.72 1.42-5.72 2.5v7.68c2 .76 4.35 2.59 5.36 2.62m-17.9-4.16c-.26.52 3.53-.39 4.9-1.41a6.38 6.38 0 0 0 2.72-5.29V18.38c0-2.35.92-3 .83-3.25-.6-.57-6.65 1.2-6.65 6.52v3c0 .79-.15 1.29-.78 1.51-1.39.38-4.43 1-4.92 4.88A6.8 6.8 0 0 0 96 34c.32.57.55.79.83.08a4.74 4.74 0 0 1 1.4-2c.72-.58 3-.7 3 .65v6.57a7.9 7.9 0 0 1-1.85 4.59m12.54-10.65c0 2.25 2.9.22 5.73.21s5.8 1.91 5.8 0v-7.64c0-1.84-2.79-.08-5.8 0s-5.72-1.78-5.73-.21v7.67Zm5.69-9.33c3.07 0 5.84-.5 5.84-2.3 0-5.71 0-9.28-5.32-9.28a42 42 0 0 0-6.21.44v9.08c0 1.47 2.62 2.08 5.69 2.06m101.8 39.58c-4-.56-5-4.19-3.42-8.09 1.88-4.77 7.4-9.47 13.83-11.42a22.3 22.3 0 0 1 9.78-.68c.84-1.45 3-4.86 3.79-6.55-5.75-1.51-12.37-3.57-15.44-7-2.42-2.75-1.94-7-.32-10.29.12-.58.9-1 .76.14 0 3.18.82 4.48 3.07 6.38 2.89 2.43 11.26 4.68 15 5.65.4-.56 1.21-2 1.6-2.74-4.14-1-10.71-3-14.2-5.74a8.65 8.65 0 0 1-2.77-10.5c2.39-5.81 9.94-6.71 15.57-5.87a23.3 23.3 0 0 1 7.68 2.72c1.12.46 2-.08 3.52-.56 1.22 1.53-7.83 8.21-8.58 6.79-2.38-4.55-9-8.63-13.83-5.27-1.65 1.15-3.91 4.46-.09 7.55 3.53 2.86 10.74 4.14 16.21 5.7 1.88-2.49 3.79-4.95 5.87-7.34 1-1.13 3.71-4.38 3.62-2.79.33 2.88-3.5 5-5.09 7.12-.54.72-2.24 2.84-2.7 3.67 2.17 1 5.15 1.94 7.9 5.4 3.85 4.86 1.17 11-1.63 14.35-1 1.18-10.7 11.12-12.08 10-3.41-2.06-5-4.14-9-5.6-3.62 5.4-11.85 16-19.07 15Zm.85-1.06c5.23.47 15.23-12.3 16.34-14.57-7.29-2.58-12.81.14-17.58 5.44-2.5 2.78-4.41 8.62 1.24 9.13m31-13.48c1 .82 6.5-5.45 7.54-7.05 1.81-2.77 1.35-7.72-1.39-9.44a20.1 20.1 0 0 0-7.6-3.05c-.43.86-1.11 1.91-1.4 2.68 4 1.31 7.06 2.79 8.36 6.17a4.86 4.86 0 0 1-2.06 5.67c-.62.4-1.28.1-.61-.48 1.41-1.44.06-3-.69-3.34a34.7 34.7 0 0 0-8.16-2.74c-.77 1.37-3.21 5.33-3.73 6.29a34.7 34.7 0 0 1 9.76 5.34Zm-66 14.75a.6.6 0 1 1 .22-1.16c4.16.68 10.16.81 13.13-1.26 2.29-1.58-.93-3.15-4.62-1.9-2.43.54-8.42 3.07-10.72 1.12-2.63-2.24 1.34-5.57 3.23-6.8.28-.18.69-.46.1-.62-2.11-.72-4.53-3.16-4.47-5.55V33.9c0-1.33-1-1.88-2.43-1.51-.83.2-1.54-.16-.47-.85a36.4 36.4 0 0 0 4.71-4.1c.73-.49 1.17-.37 1.54.07a11 11 0 0 0 2 2.23c1.2.89 1.92 1.06 1.53 1.64-.14.21-1.61 1.68-1.62 2.5v13.61c0 2.77 3.23 4 5.06 4s4.63-1.27 4.63-4V33.9c0-1.33-1-1.88-2.43-1.51-.83.2-1.54-.16-.47-.85a35 35 0 0 0 4.71-4.1c.73-.49 1.17-.37 1.54.07a11 11 0 0 0 2 2.23c1.21.89 1.92 1.06 1.53 1.64-.14.21-1.61 1.68-1.61 2.5v13.57c.17 3.31-3.64 5-6.26 5.71-1.3.31-9.93 1.19-9.93 3.26.15 1.66 2.94.44 7.34-1.07 2.81-1 7.62-.55 8.26 2.52a4.47 4.47 0 0 1-3 4.87c-4.12 1.61-8.93 1-13.37 1ZM63.07 47.39V33.85c0-.7-1.29-1.42-1.63-2.12-.21-.43-.12-.66.27-.68a11 11 0 0 0 3-.16A13.9 13.9 0 0 0 71 27.83c2-2.07 4.33.49 5.29 1.89s3.87 5.34 2.79 6.37c-3 2.4-7.59 5.16-10.76 7.35v3.23c0 .64 4.7 3 5.34 2.64a4.9 4.9 0 0 0 1.53-.77c1.83-1.19 2-.26.39 1.09-.75.74-5.49 4-6.41 3.85-1.67-.22-5-4-7.43-3.21-.27 0-.51-.6-.42-1 .56-.48 1.59-1.1 1.76-1.87Zm5.24-13.33v6.7a60 60 0 0 0 5.89-3.88c.56-.4-1.74-3.26-2.66-4.56-.92-1-1.4-2.25-3.16-.82-.26.26-.1 1.7-.07 2.56m-63 9.08A24.25 24.25 0 0 1 5 26.76a20.75 20.75 0 0 1 7.32-9.34 24.7 24.7 0 0 1 4-2.56c.46-.21 1.9-.72.6.62-2.5 3.27-6.34 6.74-7.41 12.8a18.5 18.5 0 0 0 4 15.34c2.89 3.23 5.15 5 9.52 5.68 2.31.37 5.34.42 7.45-1.16V15.77c-1.53-.08-2.91-.36-4.51-.5a12 12 0 0 0-1.84 1.94v21.28c-.28 3.46-1.46 5.81-4.94 7-.46.08-1.57.26-1.54-.08a27.7 27.7 0 0 0 .66-5.67v-14c0-4.62-1.19-2.29-2.8-1.84-.39 0-.5-.36-.83-.87.63-.46 5.83-4.68 6.77-5.65a6.65 6.65 0 0 0 1.95-2.56 52.5 52.5 0 0 0-7.09-2c-4.14-.46-9.23-1.09-12.88 2.18-1.9 1.69-3.37 5.3-.07 9.13.49.56 1 1.6-.42.47-1.76-1.76-3.45-3.61-2.8-8 .53-3.52 5.79-9.1 13.35-9 8 0 15 2.27 22.93 1.92.2 0 .64-.26.71.21.53 3.15-2.81 5.74-4.78 6.13-.24.1-.09 1.14-.17 1.38v28.14c.06.32.33 1.51.83 1.68.32.12 1.15-.55 1.58-1 1.52-1.4 2.32-3.12 2-1.62-1.39 6.24-6.82 8.83-12.66 9.29C16 54.4 8.61 51 5.29 43.14Zm36.21 10.27c1 .34 5-2.9 5-4.15C44.2 48.75 44 47.81 44 47.2V35.29l4.46-3c1-.83 3.25.14 3.28 1.83V47.2c0 .9-1.17 1.55-1.77 2.06-.1.41.14 1 .42 1 1.89-.5 2.42 2.46 4.09 3.14 1 .34 5.06-2.9 5-4.15-2.32-.5-2.48-1.44-2.48-2.05V33.47c0-.66 1.22-1.18 1.2-1.59-.29-1.54-4.1-5-5.38-4.78-1.05-.1-7.89 4.9-8.82 5.61V17.84c0-5.07 3.32-8.18 3-8.65-.86-.87-5.06 4.17-5.4 4.32-.91.55-1.46-1.48-2.75-1.26-.25.08-.09.76-.08 1v34c0 .9-1.17 1.55-1.78 2.06-.09.41.15 1 .42 1 1.9-.5 2.43 2.46 4.1 3.14Zm230.11 0c-1.67-.68-2.2-3.64-4.09-3.14-.27 0-.52-.6-.42-1 .6-.51 1.74-1.16 1.77-2.06V32.92c0-1.67-4.54-.41-4.61-1.23a8.3 8.3 0 0 1 .71-3c.36-1.34 3.91-.28 3.91-1.06v-8.34c0-1.06 3-3.17 4.57-3.88.67-.32.7.2.65.94v11.24c0 .95 5.87-1.17 4.26 2.74a2.84 2.84 0 0 1-1.31 1.56c-1.25.38-3-.29-2.95 1.15V47.2c0 .61.2 1.55 2.49 2.06.09 1.25-4 4.49-5 4.15Zm-95.94-35.57a11 11 0 0 1 .12-1.53l3.19-.37-3.08-.36v-.06c.75-3.69 3-5.94 2.78-6.33-.87-.87-5.06 4.17-5.41 4.32-.9.55-1.45-1.48-2.75-1.26-.24.08-.08.76-.08 1v1.7l-3.07-.36-2.67 1.36 2.67 1.36 3.07-.36v4l-3.29-2.88-3-.15 1.63 2.51 4.65 1.59V47.2c0 .9-1.17 1.55-1.77 2.06-.1.41.15 1 .42 1 1.9-.5 2.43 2.46 4.09 3.14 1 .34 5.06-2.9 5-4.15-2.28-.51-2.48-1.45-2.49-2.06V17.84Zm-12.16 11.9c1.21.89 1.92 1.06 1.53 1.64-.14.21-1.61 1.68-1.61 2.5V47.2c0 .61.2 1.55 2.49 2.06.09 1.25-4 4.49-5 4.15-1.67-.68-2.2-3.64-4.09-3.14-.28 0-.52-.6-.42-1 .6-.51 1.74-1.16 1.77-2.06V33.9c0-.7 0-1.89-1.53-2.12-1.14-.18-1.15-.39-.5-1.1a24 24 0 0 1 3.64-3.1l-.49-4.95 1.39-2.63 1.36 2.67-.48 4.87a8.8 8.8 0 0 0 1.94 2.24Zm-.81-10.32 2.51 1.63 2.27 6.65-4.63-5.29-.15-3Zm-4 0-2.52 1.63-2.27 6.65 4.63-5.29.16-3Zm-1.5-1.42-3 .15-5.29 4.63 6.65-2.27zm-.54-2L154 14.58l-11.6 1.36L154 17.3l2.67-1.36Zm.54-2-1.63-2.52-6.65-2.26 5.29 4.62 3 .16Zm1.48-1.48-2.52-1.63-2.27-6.65 4.63 5.29.16 3Zm2-.53 1.36-2.67L160.71 0l-1.36 9.25 1.36 2.67Zm2 .53.15-3 4.63-5.29-2.27 6.65-2.51 1.63Zm1.47 1.48 1.63-2.52 6.65-2.26-5.29 4.62-3 .16Zm-3.48 6.32-1.23 2.4 1.23 12.55v-15Zm0-8.63V.92l1.22 8.3-1.22 2.4Zm2.15.58 4.29-7.42-2 6-2.26 1.47Zm1.58 1.58 7.43-4.29-4.74 4.15zm.58 2.16h12.82l-10.42 1.22-2.4-1.29Zm-.58 2.16 7.43 4.28-6-2-1.47-2.25Zm-1.58 1.58 4.29 7.42-4.13-4.81-.14-2.68Zm-4.31 0-2.26 1.46-2 6 4.29-7.42ZM157 18.09l-2.69.15-4.74 4.14zm-.58-2.15h-12.85L154 14.71l2.4 1.23Zm.58-2.16-7.43-4.29 6 2zm1.58-1.58-4.29-7.42 4.15 4.73Z"
+          data-name="Layer 1" style="fill:currentColor;fill-rule:evenodd" />
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- Sticky masthead: logo top-left, large in hero, shrinks + gains a scrim on scroll -->
+  <header class="masthead" data-on="dark">
+    <a class="masthead__logo" href="https://www.thedailystar.net" target="_blank" rel="noopener"
+      aria-label="The Daily Star — visit thedailystar.net">
+      <svg class="tds-mark" viewBox="0 0 321.41 63.84" role="img" aria-label="The Daily Star">
+        <use href="#tds-logo"></use>
+      </svg>
+    </a>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================ HERO ============================ -->
+    <!-- Tall hero: a sticky stage holds the video; the first scroll fades the
+       title out and clears the scrim so the river is seen; the next reaches Part one. -->
+    <section class="hero" data-theme="dark" id="hero">
+      <div class="hero__sticky">
+        <div class="hero__media">
+          <video class="hero__video" autoplay muted loop playsinline preload="auto"
+            poster="assets/hero_poster_1988_2026.jpg"
+            aria-label="Satellite timelapse of the Jamuna river channel shifting across its floodplain between 1988 and 2026.">
+            <source src="assets/hero_1988_2026_web.mp4" type="video/mp4" />
+          </video>
+          <div class="hero__scrim"></div>
+          <div class="hero__grain" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero__content wrap">
+          <p class="eyebrow eyebrow--light">The rivers of Bangladesh</p>
+          <h1 class="hero__title">Rivers have erased land six&nbsp;times the size of Dhaka in five&nbsp;decades</h1>
+          <p class="hero__dek">As riverbanks shift, families are displaced again and again. Many abandon rural life
+            altogether and head for the capital's slums, only to end up in urban poverty.</p>
+          <p class="byline">Reporting by: <strong>Pinaki Roy</strong></p>
+        </div>
+
+        <figcaption class="source-chip source-chip--hero">
+          <span class="source-chip__dot" data-src="landsat"></span>Landsat / USGS &middot; the Jamuna, 1988 to 2026
+        </figcaption>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION 1 — HISTORY ====================== -->
+    <!-- Dark, immersive: a locked Maxar satellite view of the three rivers.
+       River paths draw in; glass beats rise from the foot of the screen;
+       then the map recedes and the Dhaka comparison plays over it. -->
+    <section class="chapter s1" data-theme="dark" id="history">
+      <div class="chapter__head wrap">
+        <h2 class="chapter__title">The rivers, and the ground they take</h2>
+        <p class="chapter__standfirst">Three great rivers braid down the middle of Bangladesh. Over fifty years they
+          have swallowed, and returned, land on a scale that is hard to picture. Here is the measure of it.</p>
+      </div>
+
+      <!-- Scrollytelling: a locked satellite stage, glass beats scroll past it -->
+      <div class="scrolly scrolly--map" id="scrolly1">
+        <div class="scrolly__stage">
+          <div class="mapone" id="mapone" role="img"
+            aria-label="Satellite map of Bangladesh showing the Jamuna, Ganges and Padma rivers braiding down the country and joining.">
+          </div>
+          <div class="mapone__veil" aria-hidden="true"></div>
+        </div>
+
+        <div class="scrolly__steps">
+          <div class="step" data-scene="rivers" data-state="1">
+            <div class="glasscard">
+              <p class="glasscard__num"><span data-count="158000">158,000</span> <span
+                  class="glasscard__unit">hectares</span></p>
+              <p class="glasscard__body">Over the past five decades, three rivers &mdash; the Brahmaputra, the Ganges
+                and their confluence, the Padma &mdash; have eroded a combined 158,000 hectares of land, or about
+                <strong>1,585 square kilometres</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div class="step" data-scene="rivers" data-state="2">
+            <div class="glasscard">
+              <p class="glasscard__num"><span data-count="915">915</span> <span class="glasscard__unit">hectares more,
+                  this year</span></p>
+              <p class="glasscard__body">CEGIS estimates a further <strong>915 hectares</strong> will erode this year,
+                at the eleven reaches now marked along the rivers.</p>
+            </div>
+          </div>
+
+          <div class="step" data-scene="dhaka" data-state="1">
+            <div class="glasscard">
+              <p class="glasscard__num"><span data-count="6">6</span><span class="glasscard__times">&times;</span> <span
+                  class="glasscard__unit">the capital</span></p>
+              <p class="glasscard__body">The land lost to erosion is nearly <strong>six times the area of Dhaka City
+                  Corporation</strong>. The two rings, drawn to the map's own scale, are the measure of it.</p>
+            </div>
+          </div>
+
+          <div class="step" data-scene="dhaka" data-state="2">
+            <div class="glasscard">
+              <p class="glasscard__num"><span data-count="4">4</span><span class="glasscard__times">&times;</span> <span
+                  class="glasscard__unit">even after the chars return</span></p>
+              <p class="glasscard__body">New chars have added back roughly <strong>433 square kilometres</strong> (the
+                inner ring). But the net loss, about <strong>1,153 square kilometres</strong>, is still close to four
+                times the capital &mdash; and it has displaced millions.</p>
+            </div>
+          </div>
+
+          <div class="step" data-scene="share" data-state="1">
+            <div class="glasscard">
+              <p class="glasscard__num"><span data-count="60">60</span><span class="glasscard__times">%</span> <span
+                  class="glasscard__unit">is the Jamuna alone</span></p>
+              <p class="glasscard__body">Sized to the land each river has taken, the <strong>Jamuna</strong> dwarfs the
+                others: three-fifths of everything lost in fifty years, more than the Ganges and Padma combined.</p>
+              <details class="datatable">
+                <summary>Show the figures</summary>
+                <table>
+                  <caption>Erosion and accretion by river, 1973&ndash;2026 (hectares)</caption>
+                  <thead>
+                    <tr>
+                      <th>River</th>
+                      <th>Eroded</th>
+                      <th>Regained</th>
+                      <th>Net</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Jamuna</td>
+                      <td>94,150</td>
+                      <td>14,955</td>
+                      <td>&minus;79,195</td>
+                    </tr>
+                    <tr>
+                      <td>Ganges</td>
+                      <td>30,482</td>
+                      <td>23,192</td>
+                      <td>&minus;7,290</td>
+                    </tr>
+                    <tr>
+                      <td>Padma</td>
+                      <td>33,885</td>
+                      <td>5,112</td>
+                      <td>&minus;28,773</td>
+                    </tr>
+                    <tr>
+                      <th>Total</th>
+                      <td>158,517</td>
+                      <td>43,259</td>
+                      <td>&minus;115,258</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p class="datatable__src">Source: CEGIS, 1973&ndash;2026.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2 — DISPLACEMENT ==================== -->
+    <section class="chapter s2" data-theme="light" id="displacement">
+      <div class="chapter__head wrap">
+        <h2 class="chapter__title">From riverbank to slum</h2>
+        <p class="chapter__standfirst">The land does not simply vanish. It moves people. And it moves them along a route
+          that runs, again and again, to the same few corners of the capital.</p>
+      </div>
+
+      <!-- Bholar Basti photo carousel -->
+      <figure class="photobreak" data-theme="dark">
+        <div class="carousel" id="bholaCarousel" aria-roledescription="carousel"
+          aria-label="Photographs from Bholar Basti, Dhaka">
+          <div class="carousel__viewport">
+            <ul class="carousel__track">
+              <li class="carousel__slide is-active" aria-roledescription="slide" aria-label="1 of 3">
+                <img src="assets/bhola-basti-1.jpg"
+                  alt="A child wades through a flooded lane between corrugated-tin homes in Bholar Basti, Dhaka."
+                  width="630" height="404" decoding="async" loading="lazy" />
+              </li>
+              <li class="carousel__slide" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
+                <img src="assets/bhola-basti-2.jpg"
+                  alt="A family shares a meal inside their tin-walled home in Bholar Basti, a Dhaka settlement of people displaced by river erosion."
+                  width="630" height="462" decoding="async" loading="lazy" />
+              </li>
+              <li class="carousel__slide" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
+                <img src="assets/bhola-basti-3.jpg"
+                  alt="Tin-roofed homes and laundry lines along a waterway in Bholar Basti, Dhaka." width="630"
+                  height="404" decoding="async" loading="lazy" />
+              </li>
+            </ul>
+
+            <button class="carousel__nav carousel__nav--prev" type="button" aria-label="Previous photograph">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+            <button class="carousel__nav carousel__nav--next" type="button" aria-label="Next photograph">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            <figcaption class="carousel__cap">Bholar Basti, Dhaka &middot; a settlement of the displaced</figcaption>
+          </div>
+
+          <div class="carousel__dots" role="tablist" aria-label="Select a photograph">
+            <button class="carousel__dot is-active" type="button" role="tab" aria-selected="true"
+              aria-label="Photograph 1"></button>
+            <button class="carousel__dot" type="button" role="tab" aria-selected="false"
+              aria-label="Photograph 2"></button>
+            <button class="carousel__dot" type="button" role="tab" aria-selected="false"
+              aria-label="Photograph 3"></button>
+          </div>
+        </div>
+      </figure>
+
+      <div class="prose wrap">
+        <p class="prose__lead">Bholar Basti, a Dhaka slum now home to more than 30,000 people, mostly displaced by river
+          erosion and flooding, is one such settlement. Migration researchers have documented similar clustering in
+          Mirpur-12, Molla Bosti and Duaripara, all within the same corridor of northwest Dhaka. The pattern is a direct
+          route from riverbank to slum, concentrating poverty in a few areas rather than spreading it across the
+          country.</p>
+
+        <p>Ibrahim Mia is one such migrant. He had farmed three acres and 32 decimals of land on the bank of the Jamuna
+          in Chargilabari village, Islampur, in Jamalpur district, growing sugarcane, peanuts and rice.</p>
+
+        <p>"It was a happy life with my three children," he said, sitting at a tea stall in Dhaka's Karwan Bazar on a
+          Tuesday afternoon.</p>
+
+        <p>When the river took his land and his house, Mia moved his family to his maternal uncle's home in Gaibandha.
+          There, the only work available was as a day labourer in the fields, something he found difficult to accept.
+          "It was a matter of dignity for me," he said.</p>
+
+        <p>In 2009, he left his wife, Sundari, and their three children behind and travelled to Karwan Bazar with a
+          fellow villager. He has worked as a labourer in the capital's wholesale vegetable market ever since, earning
+          about Tk 1,000 a day, of which roughly Tk 150 goes on food, bathing and a place to sleep.</p>
+
+        <blockquote class="pullquote">
+          <p>I am working here and waiting for my land to emerge in the Jamuna. Once my land emerges through accretion,
+            I'll go back to Jamalpur.</p>
+          <cite>Ibrahim Mia, formerly of Chargilabari, Jamalpur</cite>
+        </blockquote>
+
+        <p>Bangladesh has no comprehensive count of people displaced by river erosion. Sudipta Kumar Hore, senior
+          specialist for river, delta and coastal morphology at CEGIS, said there is "no specific information about
+          displaced people," but that the agency estimates roughly 1,000 people are displaced for every 100 hectares, or
+          one square kilometre, eroded.</p>
+      </div>
+
+      <!-- Three estimates, presented plainly and quietly, centred -->
+      <div class="estimates wrap" aria-label="Estimates of displacement">
+        <div class="estimate">
+          <p class="estimate__stat"><span data-count="1000">1,000</span> people</p>
+          <p class="estimate__lbl">are displaced for every square kilometre eroded, on the CEGIS estimate.</p>
+        </div>
+        <div class="estimate">
+          <p class="estimate__stat">1 in <span data-count="7">7</span> Bangladeshis</p>
+          <p class="estimate__lbl">are projected to be displaced by climate change by 2050, with erosion about 26.6
+            percent of it, per a Change Initiative projection.</p>
+        </div>
+        <div class="estimate">
+          <p class="estimate__stat"><span data-count="24328">24,328</span> families</p>
+          <p class="estimate__lbl">were recorded as erosion victims across nine districts in 2019, the government's most
+            recent tally, with damage put at Tk 366 crore. Even that did not cover every river.</p>
+        </div>
+      </div>
+
+      <div class="prose wrap">
+        <p>A recent report by Change Initiative, a climate research organisation, projected that by 2050 one in every
+          seven people in Bangladesh will have been displaced by climate change, with erosion accounting for about 26.6
+          percent of total displacement.</p>
+        <p>Government figures lag badly. The Department of Disaster Management's most recent erosion data date to 2019,
+          when 24,328 families were recorded as victims of river erosion across nine districts &mdash; Dinajpur,
+          Jamalpur, Munshiganj, Sherpur, Kurigram, Gaibandha, Chandpur, Mymensingh and Shariatpur &mdash; with damage
+          estimated at Tk 366 crore. Even that tally did not cover all rivers and districts.</p>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3 — FORECAST ==================== -->
+    <section class="chapter s3" data-theme="dark" id="forecast">
+      <div class="chapter__head wrap">
+        <h2 class="chapter__title">Predicted this year</h2>
+        <p class="chapter__standfirst">CEGIS does not only measure the past. Each year it forecasts where the rivers
+          will bite next. For 2026 it names eleven places, and puts numbers on them.</p>
+      </div>
+
+      <!-- 2026 risk breakdown (A5) -->
+      <div class="riskstats wrap">
+        <div class="riskstat riskstat--lead">
+          <p class="riskstat__fig"><span data-count="915">915</span> <em>ha</em></p>
+          <p class="riskstat__lbl">of land forecast to erode in 2026</p>
+        </div>
+        <div class="riskstat">
+          <p class="riskstat__fig"><span data-count="73">73</span> <em>ha</em></p>
+          <p class="riskstat__lbl">of settlement at risk</p>
+        </div>
+        <div class="riskstat">
+          <p class="riskstat__fig"><span data-count="11">11</span></p>
+          <p class="riskstat__lbl">vulnerable locations</p>
+        </div>
+        <div class="riskstat">
+          <p class="riskstat__fig"><span data-count="3">3</span></p>
+          <p class="riskstat__lbl">mosques</p>
+        </div>
+        <div class="riskstat">
+          <p class="riskstat__fig"><span data-count="3">3</span></p>
+          <p class="riskstat__lbl">schools</p>
+        </div>
+        <div class="riskstat">
+          <p class="riskstat__fig"><span data-count="1">1</span></p>
+          <p class="riskstat__lbl">community clinic</p>
+        </div>
+      </div>
+
+      <p class="prose wrap prose--ondark">For this year, CEGIS forecasts a further 915 hectares of erosion, putting
+        about 73 hectares of settlement at risk across 11 locations in Gaibandha, Jamalpur, Kurigram, Pabna, Kushtia and
+        Faridpur districts, including, by its estimate, three schools, three mosques, a health clinic and several roads.
+        The agency excludes any predicted erosion area smaller than 100 metres from its forecasts, so the map is a
+        floor, not a ceiling.</p>
+
+      <!-- Interactive index map (full-bleed on desktop; site list overlays the right) -->
+      <div class="mapblock" id="mapblock">
+        <div class="mapblock__frame">
+          <div id="indexmap" role="application"
+            aria-label="Interactive map of eleven riverbank locations CEGIS forecasts as vulnerable to erosion in 2026.">
+          </div>
+          <!-- Mobile: opens the site list as a panel over the map -->
+          <button class="mapmenu" id="mapmenu" type="button" aria-expanded="false" aria-controls="mapside"
+            aria-label="Show the eleven vulnerable sites">
+            <span class="mapmenu__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="mapmenu__txt">Sites</span>
+          </button>
+        </div>
+        <div class="mapblock__side" id="mapside">
+          <p class="mapblock__hint">Eleven reaches, three rivers. Select a marker, or a place below.</p>
+          <ul class="sitelist" id="sitelist"></ul>
+        </div>
+      </div>
+
+      <!-- Three river scrolls -->
+      <div class="rivers">
+
+        <!-- JAMUNA -->
+        <article class="river" id="river-jamuna" data-site="JL01">
+          <div class="river__media">
+            <figure class="sitefig">
+              <video class="sitefig__video" muted loop playsinline preload="none" poster="assets/poster_JL01.jpg"
+                aria-label="Satellite timelapse of the Jamuna at Raumari, Kurigram, cycling from 2016 to 2026 as the braided channel shifts across the floodplain.">
+                <source src="assets/site_timelapse_JL01_2016_2026.mp4" type="video/mp4" />
+              </video>
+              <figcaption class="sitefig__cap">
+                <span class="sitefig__place">Raumari, Kurigram</span>
+                <span class="sitefig__years">2016-2026</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="river__copy">
+            <p class="river__name">Jamuna <span>Lower Brahmaputra</span></p>
+            <h3 class="river__head">The embankment is the only thing holding the line.</h3>
+            <p>Along the Jamuna's right bank, the Brahmaputra flood embankment is doing double duty. Built to hold back
+              floodwater, it's also the main defence against the river eating the bank itself. In 2025, even with that
+              embankment in place, the Jamuna still took 348 hectares of land.</p>
+            <p>CEGIS's 2026 forecast marks seven stretches as vulnerable along both banks, three on the right, four on
+              the left, across Kurigram, Jamalpur, Gaibandha and Sirajganj.</p>
+            <p>Across all seven, roughly 460 hectares of land and 64 hectares of settlement are at risk. Gaibandha faces
+              the worst of it, at 223 hectares of land alone. Kurigram is projected to lose the most settlement, about
+              31 hectares, on top of 106 hectares of land. Sirajganj follows at 83 hectares.</p>
+            <p class="river__cost">The human cost is concrete: two government primary schools in Gaibandha, three
+              mosques, and Jamalpur's only community clinic are all expected to go under.</p>
+          </div>
+        </article>
+
+        <!-- GANGES -->
+        <article class="river" id="river-ganges" data-site="GR01">
+          <div class="river__media">
+            <figure class="sitefig">
+              <video class="sitefig__video" muted loop playsinline preload="none" poster="assets/poster_GR01.jpg"
+                aria-label="Satellite timelapse of the Ganges at Daulatpur, Kushtia, cycling from 2016 to 2026 as the meander widens and the char builds.">
+                <source src="assets/site_timelapse_GR01_2016_2026.mp4" type="video/mp4" />
+              </video>
+              <figcaption class="sitefig__cap">
+                <span class="sitefig__place">Daulatpur, Kushtia</span>
+                <span class="sitefig__years">2016-2026</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="river__copy">
+            <p class="river__name">Ganges</p>
+            <h3 class="river__head">A quieter forecast for the river that took the most in 2025.</h3>
+            <p>Of the three rivers, the Ganges actually did the most damage in 2025, about 593 hectares, well ahead of
+              the Jamuna's 348 and the Padma's 93. The erosion front has been shifting south and west.</p>
+
+            <!-- A3: the front shifts to the Ganges -->
+            <div class="minibars" aria-label="Land eroded in 2025 by river, in hectares.">
+              <p class="minibars__title">Eroded in 2025, by river</p>
+              <div class="minibar" style="--v:100%"><span class="minibar__name">Ganges</span><span
+                  class="minibar__track"><i></i></span><span class="minibar__num">593</span></div>
+              <div class="minibar" style="--v:58.7%"><span class="minibar__name">Jamuna</span><span
+                  class="minibar__track"><i></i></span><span class="minibar__num">348</span></div>
+              <div class="minibar" style="--v:15.7%"><span class="minibar__name">Padma</span><span
+                  class="minibar__track"><i></i></span><span class="minibar__num">93</span></div>
+            </div>
+
+            <p>But its 2026 forecast is comparatively narrow: just three vulnerable stretches, two on the left bank and
+              one on the right, all in Pabna and Kushtia. About 320 hectares of land and 5 hectares of settlement are at
+              risk.</p>
+            <p>Pabna carries most of it, roughly 215 hectares, with no settlement flagged. Kushtia's share is smaller on
+              land, about 105 hectares, but it's the only district where settlement and a school, one high school, are
+              on the list.</p>
+          </div>
+        </article>
+
+        <!-- PADMA -->
+        <article class="river" id="river-padma" data-site="PR01">
+          <div class="river__media">
+            <figure class="sitefig">
+              <video class="sitefig__video" muted loop playsinline preload="none" poster="assets/poster_PR01.jpg"
+                aria-label="Satellite timelapse of the Padma at Sadarpur, Faridpur, cycling from 2016 to 2026 as the wide channel swings across its chars.">
+                <source src="assets/site_timelapse_PR01_2016_2026.mp4" type="video/mp4" />
+              </video>
+              <figcaption class="sitefig__cap">
+                <span class="sitefig__place">Sadarpur, Faridpur</span>
+                <span class="sitefig__years">2016-2026</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="river__copy">
+            <p class="river__name">Padma</p>
+            <h3 class="river__head">One stretch, but a bigger bite than last year.</h3>
+            <p>The Padma took the least ground of the three rivers in 2025, about 93 hectares. CEGIS's 2026 forecast
+              names just one vulnerable stretch on the Padma: a single site on the right bank, at Sadarpur in Faridpur.
+            </p>
+            <p class="river__cost">About 135 hectares of land and 4 hectares of settlement there are expected to erode
+              this year &mdash; more land than the entire river lost in all of 2025.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4 — CONCLUSION ==================== -->
+    <section class="chapter s4" data-theme="dark" id="conclusion">
+      <!-- Three stills stacked vertically: one ends where the next begins, finishing just above the footer -->
+      <div class="conclusion__bg" aria-hidden="true">
+        <span class="conclusion__band conclusion__band--a"></span>
+        <span class="conclusion__band conclusion__band--b"></span>
+        <span class="conclusion__band conclusion__band--c"></span>
+      </div>
+      <div class="chapter__head wrap">
+        <h2 class="chapter__title">A village that has moved three times</h2>
+      </div>
+
+      <div class="prose prose--ondark wrap">
+        <p class="prose__lead">In Kathuria village, in Shariatpur's Zajira upazila, the gap between prediction and
+          protection was visible on a recent visit, when between 100 and 150 families were found still living directly
+          on the Padma's bank. The river had already eroded the road behind the home of Mansura Begum and her husband,
+          Mazid Gharami; ten days earlier, roughly half of their yard had gone into the river too.</p>
+
+        <p>The couple have since built a makeshift shelter from corrugated tin salvaged from their old house. "The
+          erosion started during the daylight. Villagers came to help us to dismantle the house and move our household
+          things away," Mansura said. She recalled that the Padma had been about half a kilometre from their house a few
+          years ago; last year it reached the property, and this year it took half the yard.</p>
+
+        <p>Around forty BWDB workers were seen dropping sand-filled geobags into the river along the Kathuria bank
+          during the visit, an effort that has so far protected what remains of the couple's yard. Their neighbours in
+          nearby Majherkandi village were not as fortunate: the entire settlement was eroded away and its residents
+          relocated to government land.</p>
+
+        <p>At a tea stall on the Padma's bank, Wahab Khan, an elderly resident of Majherkandi, described a village that
+          has now shifted location three times in his lifetime.</p>
+
+        <!-- The three moves -->
+        <ol class="moves" aria-label="Three relocations of Majherkandi village">
+          <li class="move"><span class="move__when">~40 years ago</span>
+            <p>The original Majherkandi, on the opposite bank, was eroded away, scattering its residents.</p>
+          </li>
+          <li class="move"><span class="move__when">~7 years ago</span>
+            <p>A char had risen mid-river; villagers resettled and named it Majherkandi again. That char, too, eroded,
+              forcing a move onto land owned by the Bridge Authority.</p>
+          </li>
+          <li class="move"><span class="move__when">2007&ndash;08 onward</span>
+            <p>A new char formed. Families relocated together and spent fifteen years rebuilding farmland, orchards and
+              homes on what had been 37 bighas of ancestral land.</p>
+          </li>
+        </ol>
+
+        <p>Fishing is now the village's main livelihood. "All the people have taken loans from NGOs, and we try to earn
+          something just to repay the loan instalments," Wahab said. Abdur Rashid Bepari, another Majherkandi resident,
+          said the family that once harvested 200 maunds of rice from its own land now depends on his two sons' wages as
+          day labourers.</p>
+
+        <p class="prose__kicker">Like Ibrahim Mia in Karwan Bazar, the villagers of Majherkandi are waiting for the
+          river to give back what it took.</p>
+
+        <blockquote class="pullquote pullquote--close">
+          <p>They are all waiting for their village to re-emerge in the river Padma. Then they will be able to move to
+            their village again.</p>
+          <cite>Wahab Khan, Majherkandi</cite>
+        </blockquote>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="site-footer" data-theme="dark">
+    <div class="site-footer__top wrap">
+      <div class="site-footer__brand">
+        <a class="site-footer__logo" href="https://www.thedailystar.net" target="_blank" rel="noopener"
+          aria-label="The Daily Star — visit thedailystar.net">
+          <svg class="tds-mark tds-mark--footer" viewBox="0 0 321.41 63.84" role="img" aria-label="The Daily Star">
+            <use href="#tds-logo"></use>
+          </svg>
+        </a>
+        <p class="site-footer__copy">&copy; <span id="year">2026</span> The Daily Star. All rights reserved.</p>
+      </div>
+      <nav class="social" aria-label="The Daily Star on social media">
+        <!-- Desk: verify official handles before publish -->
+        <a href="https://www.facebook.com/DailyStarNews/" target="_blank" rel="noopener noreferrer"
+          aria-label="The Daily Star on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z" />
+          </svg></a>
+        <a href="https://x.com/dailystarnews" target="_blank" rel="noopener noreferrer"
+          aria-label="The Daily Star on X"><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z" />
+          </svg></a>
+        <a href="https://www.youtube.com/@thedailystarnews" target="_blank" rel="noopener noreferrer"
+          aria-label="The Daily Star on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg></a>
+        <a href="https://www.instagram.com/dailystar_bd" target="_blank" rel="noopener noreferrer"
+          aria-label="The Daily Star on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077" />
+          </svg></a>
+        <a href="https://www.linkedin.com/company/thedailystar" target="_blank" rel="noopener noreferrer"
+          aria-label="The Daily Star on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg></a>
+      </nav>
+    </div>
+    <div class="site-footer__meta wrap">
+      <p>Data: Center for Environmental and Geographic Information Services (CEGIS).<br />
+        Imagery: USGS Landsat, Copernicus Sentinel, Esri.<br />
+        Design & Development: Zyma Islam, Mir Rownak</p>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/main.js?v=4" defer></script>
+</body>
+
+</html>
