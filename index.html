@@ -96,7 +96,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="css/styles.css?v=6" />
+  <link rel="stylesheet" href="css/styles.css?v=7" />
 
   <!-- ============================================================
        ANALYTICS (Google Analytics 4) — reach tracking.
@@ -170,7 +170,7 @@
           <h1 class="hero__title">Rivers have erased land six&nbsp;times the size of Dhaka in five&nbsp;decades</h1>
           <p class="hero__dek">As riverbanks shift, families are displaced again and again. Many abandon rural life
             altogether and head for the capital's slums, only to end up in urban poverty.</p>
-          <p class="byline">Reporting by: <strong>Pinaki Roy</strong></p>
+          <p class="byline">Reporting by:<strong>Pinaki Roy</strong></p>
         </div>
 
         <figcaption class="source-chip source-chip--hero">
@@ -293,6 +293,16 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Bridge: from the scale of the loss to the people it moves -->
+      <div class="interlude">
+        <p class="interlude__lead">Researchers who study erosion-driven displacement describe a consistent sequence:
+          families lose land, are displaced multiple times as chars shift beneath them, and eventually abandon rural
+          resettlement altogether for the city.</p>
+        <p>Arriving with little formal education or skills, most are absorbed into the lowest-paid tiers of Dhaka's
+          informal economy as day labourers, domestic workers or rickshaw-pullers and settle in the same handful of
+          low-lying, flood-prone slums that already house earlier waves of erosion migrants.</p>
       </div>
     </section>
 
@@ -586,6 +596,66 @@
           </div>
         </article>
       </div>
+
+      <!-- Coda: CEGIS's forecasting record and the long downward trend -->
+      <div class="interlude interlude--data">
+        <p class="eyebrow interlude__kicker">The long view</p>
+        <p class="interlude__lead">CEGIS has run annual erosion forecasts for the Jamuna, Padma and Ganges since
+          <strong>2004</strong>, using satellite imagery gathered ahead of each monsoon season. On average, the agency's
+          analysis shows, the three rivers have eroded about <strong>30 sq km</strong> of land every year over the past
+          five decades.
+        </p>
+        <p>But the trend within that average has been downward. Jamuna erosion averaged about <strong>5,000 hectares a
+            year in the 1980s</strong>; in recent years that has fallen to around <strong>1,500 hectares</strong>. Padma
+          erosion, which ran at roughly <strong>2,300 hectares a year in the 1990s</strong>, has dropped below
+          <strong>1,000 hectares</strong> annually over the past decade.
+        </p>
+        <p>CEGIS data show the three rivers together eroded about <strong>9,500 hectares in 1995</strong> &mdash; 4,700
+          from the Jamuna, 3,600 from the Padma and 1,200 from the Ganges. By 2025, the combined total had fallen to
+          <strong>1,034 hectares</strong>, though the balance between rivers had shifted: 593 hectares eroded along the
+          Ganges, 348 along the Jamuna and 93 along the Padma.
+        </p>
+
+        <!-- 1995 vs 2025: magnitude down, composition shifted -->
+        <figure class="epochs" aria-label="Combined river erosion in 1995 versus 2025, by river, in hectares.">
+          <figcaption class="epochs__title">Combined erosion, 1995 vs 2025</figcaption>
+          <div class="epochs__grid">
+            <div class="epoch">
+              <p class="epoch__year">1995</p>
+              <p class="epoch__total"><span data-count="9500">9,500</span> <em>ha</em></p>
+              <ul class="epoch__rivers">
+                <li><span class="epoch__dot" data-river="Jamuna"></span><span class="epoch__nm">Jamuna</span>
+                  <b>4,700</b>
+                </li>
+                <li><span class="epoch__dot" data-river="Padma"></span><span class="epoch__nm">Padma</span> <b>3,600</b>
+                </li>
+                <li><span class="epoch__dot" data-river="Ganges"></span><span class="epoch__nm">Ganges</span>
+                  <b>1,200</b>
+                </li>
+              </ul>
+            </div>
+            <div class="epochs__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 12h15M13 6l6 6-6 6" />
+              </svg>
+            </div>
+            <div class="epoch">
+              <p class="epoch__year">2025</p>
+              <p class="epoch__total"><span data-count="1034">1,034</span> <em>ha</em></p>
+              <ul class="epoch__rivers">
+                <li><span class="epoch__dot" data-river="Ganges"></span><span class="epoch__nm">Ganges</span> <b>593</b>
+                </li>
+                <li><span class="epoch__dot" data-river="Jamuna"></span><span class="epoch__nm">Jamuna</span> <b>348</b>
+                </li>
+                <li><span class="epoch__dot" data-river="Padma"></span><span class="epoch__nm">Padma</span> <b>93</b>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <p class="epochs__note">The total fell roughly ninefold &mdash; but the Ganges climbed from the smallest
+            eroder to the largest.</p>
+        </figure>
+      </div>
     </section>
 
     <!-- ==================== SECTION 4 — CONCLUSION ==================== -->
@@ -711,7 +781,7 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="js/main.js?v=6" defer></script>
+  <script src="js/main.js?v=7" defer></script>
 </body>
 
 </html>
