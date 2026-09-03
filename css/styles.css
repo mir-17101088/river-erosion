@@ -689,11 +689,13 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
   .river__media{position:sticky;top:56px;z-index:2;margin:0;background:var(--ink);
     padding:0 clamp(1.25rem,5vw,2.75rem)}
   .river:nth-child(even) .river__media{order:0}
-  /* shorter image => bigger reading window below it => more time before the dissolve */
-  .sitefig{aspect-ratio:4/3;border-radius:0;max-height:40vh;border-left:0;border-right:0}
-  /* the 4:3 crop trims top+bottom of the square frame; bias to the top so the
-     burned-in year label (top-right of the frame) is never cut off */
-  .sitefig__video{object-position:center top}
+  /* The satellite frames carry burned-in labels at BOTH extremes — the year at the
+     top-right AND the probability legend / "2026 erosion prediction" key at the
+     bottom-left — so the whole square must show; any vertical crop loses one of them.
+     A square box shows the full frame with no crop on phones; `contain` keeps every
+     label safe on the odd short/wide viewport (tablet, landscape) too. */
+  .sitefig{aspect-ratio:1/1;border-radius:0;max-height:60vh;border-left:0;border-right:0;margin-inline:auto}
+  .sitefig__video{object-fit:contain}
   .sitefig__place{font-size:.66rem;padding:.65rem .8rem 1.4rem}
   .sitefig__controls{padding:1.3rem .75rem .75rem}
   /* ink fade at the image's foot: copy dissolves here as it rises behind the pinned image */
