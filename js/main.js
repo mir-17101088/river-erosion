@@ -7,6 +7,14 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var MAST = 70;
 
+  /* Device/connection hints. On Data Saver or a 2G-class link we skip eager,
+     autoplaying video downloads (the reader can still scrub); on phones we ask
+     Leaflet to keep a smaller off-screen tile buffer. Desktop is unaffected. */
+  var conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+  var saveData = !!(conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '')));
+  var noAuto = reduce || saveData;
+  var isPhone = window.matchMedia('(max-width:900px)').matches;
+
   /* Run cb once, shortly before el scrolls into view. Falls back to running now
      where IntersectionObserver is missing. Used to defer the heavy Leaflet maps. */
   function whenNear(el, cb, margin) {
@@ -138,8 +146,9 @@
   /* ---------- Hero video: gentle slow-down; pause under reduced motion ---------- */
   var heroVid = document.querySelector('.hero__video');
   if (heroVid) {
-    if (reduce) {
-      try { heroVid.pause(); heroVid.removeAttribute('autoplay'); } catch (e) { }
+    if (noAuto) {
+      // reduced motion, or a metered/slow link: hold on the poster, don't fetch the film
+      try { heroVid.pause(); heroVid.removeAttribute('autoplay'); heroVid.preload = 'none'; heroVid.load(); } catch (e) { }
     } else {
       var setHeroRate = function () { try { heroVid.playbackRate = 0.72; } catch (e) { } };
       heroVid.addEventListener('loadedmetadata', setHeroRate);
@@ -194,8 +203,9 @@
     new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) {
-          vid.preload = 'auto';                       // also enables scrubbing under reduced motion
-          if (!autoplayed && !reduce) { autoplayed = true; play(); }
+          // full fetch on view, but on data-saver wait for a scrub/tap before pulling the whole clip
+          vid.preload = saveData ? 'metadata' : 'auto';
+          if (!autoplayed && !noAuto) { autoplayed = true; play(); }
         } else if (!vid.ended) {
           vid.pause();                                // pause when scrolled away; never auto-resumes
         }
@@ -292,15 +302,19 @@
     // covered after a flyTo — without it the uncovered edges fell back to upscaled
     // low-zoom parent tiles (the soft/blurry patches). updateWhenZooming stays at its
     // default (true) so the grid keeps loading through the fly and lands fully covered.
+    // Lighter tile footprint on phones: a smaller off-screen buffer means far fewer
+    // tile requests and much less memory. Skip retina doubling on data-saver links.
+    var kb = isPhone ? 2 : 6;
+    var retina = !saveData;
     L.tileLayer(
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      { attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics', maxZoom: 17, detectRetina: true, keepBuffer: 6 }
+      { attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics', maxZoom: 17, detectRetina: retina, keepBuffer: kb }
     ).addTo(map);
     // faint place labels for orientation — {r} pulls CARTO's native @2x tiles on
     // high-DPI screens (no detectRetina here, or it would double up with {r})
     L.tileLayer(
       'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_only_labels/{z}/{x}/{y}{r}.png',
-      { attribution: '&copy; OpenStreetMap, &copy; CARTO', opacity: 0.55, maxZoom: 19, keepBuffer: 6 }
+      { attribution: '&copy; OpenStreetMap, &copy; CARTO', opacity: 0.55, maxZoom: 19, keepBuffer: kb }
     ).addTo(map);
 
     var siteList = document.getElementById('sitelist');
@@ -481,7 +495,7 @@
       zoomSnap: 0, fadeAnimation: true, inertia: false
     });
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      { attribution: 'Imagery &copy; Esri, Maxar', maxZoom: 17, detectRetina: true, keepBuffer: 3 }).addTo(map);
+      { attribution: 'Imagery &copy; Esri, Maxar', maxZoom: 17, detectRetina: !saveData, keepBuffer: isPhone ? 2 : 3 }).addTo(map);
     map.setView([24.05, 89.3], 7); // provisional view so projection is valid before fitBounds
 
     function mk(tag) { return document.createElementNS(NS, tag); }

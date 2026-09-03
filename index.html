@@ -92,11 +92,17 @@
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&display=swap"
     rel="stylesheet" />
 
+  <!-- Map + Leaflet CDNs: warm up the connections early so the maps start loading sooner -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="preconnect" href="https://server.arcgisonline.com" crossorigin />
+  <link rel="dns-prefetch" href="https://server.arcgisonline.com" />
+  <link rel="dns-prefetch" href="https://cartodb-basemaps-a.global.ssl.fastly.net" />
+
   <!-- Leaflet (interactive index map) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="css/styles.css?v=7" />
+  <link rel="stylesheet" href="css/styles.css?v=8" />
 
   <!-- ============================================================
        ANALYTICS (Google Analytics 4) — reach tracking.
@@ -156,9 +162,11 @@
     <section class="hero" data-theme="dark" id="hero">
       <div class="hero__sticky">
         <div class="hero__media">
-          <video class="hero__video" autoplay muted loop playsinline preload="auto"
+          <video class="hero__video" autoplay muted loop playsinline preload="metadata"
             poster="assets/hero_poster_1988_2026.jpg"
             aria-label="Satellite timelapse of the Jamuna river channel shifting across its floodplain between 1988 and 2026.">
+            <!-- lighter 480p file for phones; desktop gets the 720p master -->
+            <source src="assets/hero_1988_2026_web_m.mp4" type="video/mp4" media="(max-width:760px)" />
             <source src="assets/hero_1988_2026_web.mp4" type="video/mp4" />
           </video>
           <div class="hero__scrim"></div>
@@ -781,7 +789,7 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="js/main.js?v=7" defer></script>
+  <script src="js/main.js?v=8" defer></script>
 </body>
 
 </html>

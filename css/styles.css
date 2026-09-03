@@ -327,7 +327,9 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
 .moverlay__marks{opacity:0;transition:opacity .55s var(--ease-out)}
 .scrolly--map[data-marks="1"] .moverlay__marks{opacity:1}
 .moverlay__mark{fill:var(--brick);stroke:rgba(255,241,236,.92);stroke-width:1.5}
-@media (prefers-reduced-motion:no-preference){
+/* Pulse animates the SVG `r` attribute (repaints every frame); keep it on desktop,
+   but not on phones where a forever-running repaint on 11 markers costs battery/fps. */
+@media (prefers-reduced-motion:no-preference) and (min-width:901px){
   .scrolly--map[data-marks="1"] .moverlay__mark{animation:markPulse 2.6s var(--ease-out) infinite}
   @keyframes markPulse{0%,100%{r:4.5}50%{r:6.6}}
 }
@@ -802,6 +804,25 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
   .rivchip{background:rgba(20,26,21,.82)}
   .mapblock__side{background:color-mix(in srgb,var(--ink) 96%,transparent)}
   .map-reset,.mapmenu,.to-top,.carousel__nav{background:color-mix(in srgb,var(--ink) 94%,transparent)}
+}
+
+/* =============================================================
+   MOBILE GPU RELIEF — on phones, live backdrop-blur on surfaces that
+   move/scroll over the maps and photos is the biggest cause of scroll
+   jank. Drop the blur (and the blended film grain over the playing hero)
+   on small screens and lean on the same solid grounds as the no-support
+   fallback, so nothing becomes unreadable. Desktop keeps the full glass.
+   ============================================================= */
+@media (max-width:900px){
+  .glasscard,.rivchip,.mapblock__side,.map-reset,.mapmenu,.to-top,.carousel__nav{
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+  }
+  .glasscard{background:rgba(18,24,19,.9)}
+  .rivchip{background:rgba(20,26,21,.82)}
+  .mapblock__side{background:color-mix(in srgb,var(--ink) 94%,transparent)}
+  .map-reset,.mapmenu,.to-top,.carousel__nav{background:color-mix(in srgb,var(--ink) 92%,transparent)}
+  /* film grain uses mix-blend-mode over the playing video — continuous compositing */
+  .hero__grain{display:none}
 }
 
 /* =============================================================
