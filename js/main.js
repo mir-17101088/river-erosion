@@ -117,7 +117,12 @@
       st.classList.toggle('is-past', i < idx);
     });
     var st = s1steps[idx];
-    if (st) applyBeat(st.getAttribute('data-scene'), st.getAttribute('data-state'));
+    if (st) {
+      applyBeat(st.getAttribute('data-scene'), st.getAttribute('data-state'));
+      // auto-drop the figures table on the "60% Jamuna" beat, so it opens on scroll (no click needed)
+      var dt = st.querySelector('.datatable');
+      if (dt && !dt.open) dt.open = true;
+    }
   }
   var s1obs = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
@@ -134,36 +139,65 @@
   var heroVid = document.querySelector('.hero__video');
   if (heroVid) {
     if (reduce) {
-      try { heroVid.pause(); heroVid.removeAttribute('autoplay'); } catch (e) {}
+      try { heroVid.pause(); heroVid.removeAttribute('autoplay'); } catch (e) { }
     } else {
-      var setHeroRate = function () { try { heroVid.playbackRate = 0.36; } catch (e) {} };
+      var setHeroRate = function () { try { heroVid.playbackRate = 0.72; } catch (e) { } };
       heroVid.addEventListener('loadedmetadata', setHeroRate);
       setHeroRate();
     }
   }
 
-  /* ---------- Site videos: loop the timelapse, holding 3s on the final frame ---------- */
+  /* ---------- Site videos: play once when they scroll into view, then STOP.
+     No auto-replay, no button — a single subtle scrubber lets the reader replay and move
+     back and forth through the years (the frames carry their own year label). ---------- */
   document.querySelectorAll('.sitefig').forEach(function (fig) {
     var vid = fig.querySelector('video');
     if (!vid) return;
+    var scrub = fig.querySelector('.sitefig__scrub');
     vid.loop = false;
-    if (reduce) { return; } // poster stays; no autoplay under reduced motion
-    var HOLD = 3000, holdTimer = null, holding = false, inView = false;
-    function play() { var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
-    function replay() { try { vid.currentTime = 0; } catch (e) {} holding = false; play(); }
-    vid.addEventListener('ended', function () {
-      holding = true;                 // freeze on the final (2026) frame
-      clearTimeout(holdTimer);
-      holdTimer = setTimeout(function () { holding = false; if (inView) replay(); }, HOLD);
-    });
+    var autoplayed = false, scrubbing = false, raf = null;
+
+    function play() { var p = vid.play(); if (p && p.catch) p.catch(function () { }); }
+    function setFill(p) { if (scrub) scrub.style.setProperty('--p', (p * 100).toFixed(2) + '%'); }
+    function syncScrub() {
+      if (scrubbing || !vid.duration) return;
+      var p = vid.currentTime / vid.duration;
+      if (scrub) scrub.value = String(p * 1000);
+      setFill(p);
+    }
+    // rAF keeps the fill gliding smoothly while it plays (timeupdate alone is steppy)
+    function loop() { syncScrub(); raf = (!vid.paused && !vid.ended) ? requestAnimationFrame(loop) : null; }
+    function startLoop() { if (!raf) raf = requestAnimationFrame(loop); }
+    function stopLoop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+    vid.addEventListener('loadedmetadata', syncScrub);
+    vid.addEventListener('timeupdate', syncScrub);
+    vid.addEventListener('play', startLoop);
+    vid.addEventListener('pause', function () { stopLoop(); syncScrub(); });
+    vid.addEventListener('ended', function () { stopLoop(); if (scrub) scrub.value = '1000'; setFill(1); });
+
+    if (scrub) {
+      scrub.addEventListener('pointerdown', function () { vid.pause(); });
+      scrub.addEventListener('input', function () {
+        scrubbing = true;
+        var p = (+scrub.value) / 1000;
+        setFill(p);
+        if (vid.duration) { try { vid.currentTime = p * vid.duration; } catch (e) { } }
+      });
+      var endScrub = function () { scrubbing = false; };
+      scrub.addEventListener('change', endScrub);
+      scrub.addEventListener('pointerup', endScrub);
+      scrub.addEventListener('pointercancel', endScrub);
+    }
+
+    // First time it enters view: load it and play once through, then it stops on its own.
     new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        inView = en.isIntersecting;
-        if (inView) {
-          vid.preload = 'auto';
-          if (!holding) { if (vid.ended) replay(); else play(); }
-        } else {
-          vid.pause();
+        if (en.isIntersecting) {
+          vid.preload = 'auto';                       // also enables scrubbing under reduced motion
+          if (!autoplayed && !reduce) { autoplayed = true; play(); }
+        } else if (!vid.ended) {
+          vid.pause();                                // pause when scrolled away; never auto-resumes
         }
       });
     }, { threshold: 0.4 }).observe(fig);
@@ -553,7 +587,7 @@
           var d = 'M' + pts.map(function (ll) { var p = project(ll); return p.x.toFixed(1) + ' ' + p.y.toFixed(1); }).join(' L');
           var path = riverPaths[k];
           path.setAttribute('d', d);
-          try { path.style.setProperty('--len', path.getTotalLength()); } catch (e) {}
+          try { path.style.setProperty('--len', path.getTotalLength()); } catch (e) { }
         });
         placeChip('Jamuna', 0.13);
         placeChip('Ganges', 0.20);
@@ -573,7 +607,7 @@
       var net2 = (sceneNow === 'dhaka' && stateNow === '2');
       placeLabel(labels.gross, dc,
         net2 ? '4× Dhaka, net' : '6× Dhaka',
-        net2 ? '1,153 km² lost after the chars return' : '1,585 km² eroded in fifty years',
+        net2 ? '1,153 square kilometres lost after the chars return' : '1,585 square kilometres eroded in fifty years',
         'above', rGross, { bigSize: 21, subSize: 15.5, gap: 26 });
       placeLabel(labels.dhaka, dc, 'Dhaka', '270 km²', 'center', 0);
 
@@ -605,9 +639,11 @@
       var mPerPx = grossRm / wantRpx;
       var z = Math.log(40075016.686 * Math.cos(lat) / (256 * mPerPx)) / Math.LN2;
       z = Math.max(4, Math.min(z, 12));
-      // seat Dhaka a little above centre so the rings clear the bottom glass card
+      // On desktop the beats sit on the left, so seat Dhaka (and its rings) to the right.
+      // On narrower screens the card is centred at the foot, so keep the rings centred and lifted.
+      var wide = size.x >= 1024;
       var dpt = map.project(DHAKA, z);
-      var want = L.point(size.x / 2, size.y * 0.44);
+      var want = L.point(size.x * (wide ? 0.7 : 0.5), size.y * (wide ? 0.5 : 0.44));
       var centerPt = dpt.subtract(want.subtract(L.point(size.x / 2, size.y / 2)));
       return { center: map.unproject(centerPt, z), zoom: z };
     }

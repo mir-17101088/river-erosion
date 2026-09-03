@@ -49,6 +49,42 @@
   <meta name="twitter:image:alt"
     content="Satellite view of a braided river channel shifting across the Bangladesh floodplain." />
 
+  <!-- Structured data (NewsArticle) — rich-result eligibility + discovery/tracking in Search Console -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Rivers have erased land six times the size of Dhaka in five decades",
+    "description": "Riverbank erosion has erased land six times the size of Dhaka in five decades, displacing millions along the Jamuna, Ganges and Padma. A Daily Star visual investigation with CEGIS data, satellite imagery and the 2026 forecast of where the rivers will bite next.",
+    "image": [
+      "https://campaign.thedailystar.net/river-erosion/assets/og-image.jpg"
+    ],
+    "datePublished": "2026-09-05T09:00:00+06:00",
+    "dateModified": "2026-09-05T09:00:00+06:00",
+    "author": {
+      "@type": "Person",
+      "name": "Pinaki Roy"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "The Daily Star",
+      "url": "https://www.thedailystar.net",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://campaign.thedailystar.net/river-erosion/logo.svg"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://campaign.thedailystar.net/river-erosion/"
+    },
+    "isAccessibleForFree": true,
+    "inLanguage": "en",
+    "articleSection": "Environment",
+    "keywords": "riverbank erosion, Bangladesh, Jamuna, Ganges, Padma, CEGIS, displacement, char land, climate displacement"
+  }
+  </script>
+
   <!-- Fonts: Newsreader (editorial serif) + IBM Plex Sans/Mono (labels + figures). Desk note: self-host for production. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,7 +96,30 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="css/styles.css?v=5" />
+  <link rel="stylesheet" href="css/styles.css?v=6" />
+
+  <!-- ============================================================
+       ANALYTICS (Google Analytics 4) — reach tracking.
+       DESK: replace G-XXXXXXXXXX below with The Daily Star's GA4
+       Measurement ID. Until it's replaced this block does NOTHING
+       (no request, no wrong-property data). If you use Google Tag
+       Manager instead, swap this for your GTM container snippet.
+       ============================================================ -->
+  <script>
+    window.TDS_GA_ID = 'G-XXXXXXXXXX'; /* <-- replace with the real GA4 Measurement ID */
+    (function () {
+      var id = window.TDS_GA_ID;
+      if (!id || /X{6,}/.test(id)) return; /* placeholder not replaced -> stay inert */
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', id, { anonymize_ip: true });
+    })();
+  </script>
 </head>
 
 <body data-scroll="top">
@@ -107,7 +166,7 @@
         </div>
 
         <div class="hero__content wrap">
-          <p class="eyebrow eyebrow--light">The rivers of Bangladesh</p>
+          <p class="eyebrow eyebrow--light">River Erosion in Bangladesh</p>
           <h1 class="hero__title">Rivers have erased land six&nbsp;times the size of Dhaka in five&nbsp;decades</h1>
           <p class="hero__dek">As riverbanks shift, families are displaced again and again. Many abandon rural life
             altogether and head for the capital's slums, only to end up in urban poverty.</p>
@@ -128,7 +187,7 @@
       <div class="chapter__head wrap">
         <h2 class="chapter__title">The rivers, and the ground they take</h2>
         <p class="chapter__standfirst">Three great rivers braid down the middle of Bangladesh. Over fifty years they
-          have swallowed, and returned, land on a scale that is hard to picture. Here is the measure of it.</p>
+          have swallowed land on a scale that is hard to picture. Here is the measure of it.</p>
       </div>
 
       <!-- Scrollytelling: a locked satellite stage, glass beats scroll past it -->
@@ -174,7 +233,8 @@
             <div class="glasscard">
               <p class="glasscard__num"><span data-count="4">4</span><span class="glasscard__times">&times;</span> <span
                   class="glasscard__unit">even after the chars return</span></p>
-              <p class="glasscard__body">New chars have added back roughly <strong>433 square kilometres</strong> (the
+              <p class="glasscard__body">Newly formed chars, the sandbars that rise and fall with the rivers' shifting
+                courses, have added back roughly <strong>433 square kilometres</strong> (the
                 inner ring). But the net loss, about <strong>1,153 square kilometres</strong>, is still close to four
                 times the capital &mdash; and it has displaced millions.</p>
             </div>
@@ -183,11 +243,14 @@
           <div class="step" data-scene="share" data-state="1">
             <div class="glasscard">
               <p class="glasscard__num"><span data-count="60">60</span><span class="glasscard__times">%</span> <span
-                  class="glasscard__unit">is the Jamuna alone</span></p>
-              <p class="glasscard__body">Sized to the land each river has taken, the <strong>Jamuna</strong> dwarfs the
-                others: three-fifths of everything lost in fifty years, more than the Ganges and Padma combined.</p>
+                  class="glasscard__unit">of land lost was engulfed by the Jamuna alone</span></p>
+              <p class="glasscard__body">Across the full 1973-2025 period, CEGIS satellite analysis shows the
+                <strong>Jamuna</strong>
+                alone accounted for three-fifths of everything lost in fifty years, more than the Ganges and Padma
+                combined.
+              </p>
               <details class="datatable">
-                <summary>Show the figures</summary>
+
                 <table>
                   <caption>Erosion and accretion by river, 1973&ndash;2026 (hectares)</caption>
                   <thead>
@@ -291,13 +354,14 @@
 
       <div class="prose wrap">
         <p class="prose__lead">Bholar Basti, a Dhaka slum now home to more than 30,000 people, mostly displaced by river
-          erosion and flooding, is one such settlement. Migration researchers have documented similar clustering in
+          erosion and flooding in Bhola district, is one such settlement. Migration researchers have documented similar
+          clustering in
           Mirpur-12, Molla Bosti and Duaripara, all within the same corridor of northwest Dhaka. The pattern is a direct
           route from riverbank to slum, concentrating poverty in a few areas rather than spreading it across the
           country.</p>
 
-        <p>Ibrahim Mia is one such migrant. He had farmed three acres and 32 decimals of land on the bank of the Jamuna
-          in Chargilabari village, Islampur, in Jamalpur district, growing sugarcane, peanuts and rice.</p>
+        <p>Ibrahim Mia is one such migrant. He once farmed more than three acres of land on the bank of the Jamuna in
+          Chargilabari village, Islampur, in the northern district of Jamalpur, growing sugarcane, peanuts and rice.</p>
 
         <p>"It was a happy life with my three children," he said, sitting at a tea stall in Dhaka's Karwan Bazar on a
           Tuesday afternoon.</p>
@@ -317,9 +381,8 @@
         </blockquote>
 
         <p>Bangladesh has no comprehensive count of people displaced by river erosion. Sudipta Kumar Hore, senior
-          specialist for river, delta and coastal morphology at CEGIS, said there is "no specific information about
-          displaced people," but that the agency estimates roughly 1,000 people are displaced for every 100 hectares, or
-          one square kilometre, eroded.</p>
+          specialist for river, delta and coastal morphology at CEGIS, said the agency estimates roughly 1,000 people
+          are displaced for every 100 hectares -- or one sqkm -- eroded.</p>
       </div>
 
       <!-- Three estimates, presented plainly and quietly, centred -->
@@ -329,7 +392,7 @@
           <p class="estimate__lbl">are displaced for every square kilometre eroded, on the CEGIS estimate.</p>
         </div>
         <div class="estimate">
-          <p class="estimate__stat">1 in <span data-count="7">7</span> Bangladeshis</p>
+          <p class="estimate__stat"><span data-count="1">1</span>in <span data-count="7">7</span> Bangladeshis</p>
           <p class="estimate__lbl">are projected to be displaced by climate change by 2050, with erosion about 26.6
             percent of it, per a Change Initiative projection.</p>
         </div>
@@ -348,6 +411,10 @@
           when 24,328 families were recorded as victims of river erosion across nine districts &mdash; Dinajpur,
           Jamalpur, Munshiganj, Sherpur, Kurigram, Gaibandha, Chandpur, Mymensingh and Shariatpur &mdash; with damage
           estimated at Tk 366 crore. Even that tally did not cover all rivers and districts.</p>
+
+        <p>Independent researchers put the annual toll higher. Mohammad Zaman and Mostafa Alam, in their 2020 book
+          Living on the Edge: Char Dwellers of Bangladesh (Springer), estimate that about 100 sqkm is lost to erosion
+          every year; others cite a figure closer to 10,000 hectares annually.</p>
       </div>
     </section>
 
@@ -395,6 +462,9 @@
         Faridpur districts, including, by its estimate, three schools, three mosques, a health clinic and several roads.
         The agency excludes any predicted erosion area smaller than 100 metres from its forecasts, so the map is a
         floor, not a ceiling.</p>
+      <p class="prose wrap prose--ondark">The Bangladesh Water Development Board (BWDB) acts on these predictions,
+        primarily by deploying sand-filled geobags along vulnerable banks. Even so, tens of thousands of people lose
+        land or property to erosion each year.</p>
 
       <!-- Interactive index map (full-bleed on desktop; site list overlays the right) -->
       <div class="mapblock" id="mapblock">
@@ -422,14 +492,15 @@
         <article class="river" id="river-jamuna" data-site="JL01">
           <div class="river__media">
             <figure class="sitefig">
-              <video class="sitefig__video" muted loop playsinline preload="none" poster="assets/poster_JL01.jpg"
-                aria-label="Satellite timelapse of the Jamuna at Raumari, Kurigram, cycling from 2016 to 2026 as the braided channel shifts across the floodplain.">
+              <video class="sitefig__video" muted playsinline preload="none" poster="assets/poster_JL01.jpg"
+                aria-label="Satellite timelapse of the Jamuna at Raumari, Kurigram, from 2016 to 2026 as the braided channel shifts across the floodplain.">
                 <source src="assets/site_timelapse_JL01_2016_2026.mp4" type="video/mp4" />
               </video>
-              <figcaption class="sitefig__cap">
-                <span class="sitefig__place">Raumari, Kurigram</span>
-                <span class="sitefig__years">2016-2026</span>
-              </figcaption>
+              <figcaption class="sitefig__place">Raumari, Kurigram</figcaption>
+              <div class="sitefig__controls">
+                <input class="sitefig__scrub" type="range" min="0" max="1000" value="0" step="any"
+                  aria-label="Scrub the Raumari timelapse through the years 2016 to 2026" />
+              </div>
             </figure>
           </div>
           <div class="river__copy">
@@ -452,14 +523,15 @@
         <article class="river" id="river-ganges" data-site="GR01">
           <div class="river__media">
             <figure class="sitefig">
-              <video class="sitefig__video" muted loop playsinline preload="none" poster="assets/poster_GR01.jpg"
-                aria-label="Satellite timelapse of the Ganges at Daulatpur, Kushtia, cycling from 2016 to 2026 as the meander widens and the char builds.">
+              <video class="sitefig__video" muted playsinline preload="none" poster="assets/poster_GR01.jpg"
+                aria-label="Satellite timelapse of the Ganges at Daulatpur, Kushtia, from 2016 to 2026 as the meander widens and the char builds.">
                 <source src="assets/site_timelapse_GR01_2016_2026.mp4" type="video/mp4" />
               </video>
-              <figcaption class="sitefig__cap">
-                <span class="sitefig__place">Daulatpur, Kushtia</span>
-                <span class="sitefig__years">2016-2026</span>
-              </figcaption>
+              <figcaption class="sitefig__place">Daulatpur, Kushtia</figcaption>
+              <div class="sitefig__controls">
+                <input class="sitefig__scrub" type="range" min="0" max="1000" value="0" step="any"
+                  aria-label="Scrub the Daulatpur timelapse through the years 2016 to 2026" />
+              </div>
             </figure>
           </div>
           <div class="river__copy">
@@ -492,14 +564,15 @@
         <article class="river" id="river-padma" data-site="PR01">
           <div class="river__media">
             <figure class="sitefig">
-              <video class="sitefig__video" muted loop playsinline preload="none" poster="assets/poster_PR01.jpg"
-                aria-label="Satellite timelapse of the Padma at Sadarpur, Faridpur, cycling from 2016 to 2026 as the wide channel swings across its chars.">
+              <video class="sitefig__video" muted playsinline preload="none" poster="assets/poster_PR01.jpg"
+                aria-label="Satellite timelapse of the Padma at Sadarpur, Faridpur, from 2016 to 2026 as the wide channel swings across its chars.">
                 <source src="assets/site_timelapse_PR01_2016_2026.mp4" type="video/mp4" />
               </video>
-              <figcaption class="sitefig__cap">
-                <span class="sitefig__place">Sadarpur, Faridpur</span>
-                <span class="sitefig__years">2016-2026</span>
-              </figcaption>
+              <figcaption class="sitefig__place">Sadarpur, Faridpur</figcaption>
+              <div class="sitefig__controls">
+                <input class="sitefig__scrub" type="range" min="0" max="1000" value="0" step="any"
+                  aria-label="Scrub the Sadarpur timelapse through the years 2016 to 2026" />
+              </div>
             </figure>
           </div>
           <div class="river__copy">
@@ -552,12 +625,14 @@
             <p>The original Majherkandi, on the opposite bank, was eroded away, scattering its residents.</p>
           </li>
           <li class="move"><span class="move__when">~7 years ago</span>
-            <p>A char had risen mid-river; villagers resettled and named it Majherkandi again. That char, too, eroded,
-              forcing a move onto land owned by the Bridge Authority.</p>
+            <p>A char had risen mid-river; villagers resettled and named it Majherkandi again. That char, too, was
+              eroded seven years ago, forcing another move -- this time onto land belonging to the Bangladesh Bridge
+              Authority (BBA), which periodically sends notices asking residents to vacate.</p>
           </li>
           <li class="move"><span class="move__when">2007&ndash;08 onward</span>
-            <p>A new char formed. Families relocated together and spent fifteen years rebuilding farmland, orchards and
-              homes on what had been 37 bighas of ancestral land.</p>
+            <p>When a new char formed around 2007-08, families relocated together and spent the next 15 years
+              rebuilding: farmland, orchards of mango, jackfruit, blackberry, litchi, coconut and malta trees, and
+              homesteads on what had once been 37 bighas of ancestral land.</p>
           </li>
         </ol>
 
@@ -570,8 +645,8 @@
           river to give back what it took.</p>
 
         <blockquote class="pullquote pullquote--close">
-          <p>They are all waiting for their village to re-emerge in the river Padma. Then they will be able to move to
-            their village again.</p>
+          <p>We are all waiting for our village to re-emerge in the river Padma. Then we will be able to move to our
+            village again.</p>
           <cite>Wahab Khan, Majherkandi</cite>
         </blockquote>
       </div>
@@ -636,7 +711,7 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="js/main.js?v=5" defer></script>
+  <script src="js/main.js?v=6" defer></script>
 </body>
 
 </html>

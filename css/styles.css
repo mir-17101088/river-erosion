@@ -137,11 +137,11 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
 .source-chip__dot[data-src="cegis"]{background:var(--brick)}
 
 /* =============================================================
-   HERO — tall stage; the first scroll clears the title so the
-   river shows at full clarity, the next scroll reaches Part one.
+   HERO — a single full-height section: title, dek and the film
+   read as one, then the reader scrolls straight on to Part one.
    ============================================================= */
-.hero{position:relative;height:200vh;background:var(--ink)}
-.hero__sticky{position:sticky;top:0;height:100dvh;min-height:100dvh;
+.hero{position:relative;height:100dvh;min-height:100dvh;background:var(--ink)}
+.hero__sticky{position:relative;height:100%;min-height:100dvh;
   display:flex;flex-direction:column;justify-content:center;overflow:hidden;isolation:isolate}
 .hero__media{position:absolute;inset:0;z-index:-1}
 /* Darker, deeper grade so the silvery timelapse reads as slate and the title carries */
@@ -197,21 +197,6 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
 .byline{animation-delay:.68s}
 @keyframes heroIn{to{opacity:1;transform:none}}
 
-/* First-scroll reveal: fade the words away and clear the scrim so the film breathes.
-   Scroll-driven (no scroll listeners); falls back to a static, legible hero. */
-@supports (animation-timeline: scroll()){
-  @media (prefers-reduced-motion:no-preference){
-    .hero__content{animation:heroWordsOut linear both;animation-timeline:scroll(root block);animation-range:8vh 60vh}
-    .hero__scrim{animation:heroScrimClear linear both;animation-timeline:scroll(root block);animation-range:2vh 56vh}
-  }
-}
-@keyframes heroWordsOut{to{opacity:0;transform:translateY(-42px);filter:blur(3px)}}
-@keyframes heroScrimClear{to{opacity:.26}}
-
-@media (prefers-reduced-motion:reduce){
-  .hero{height:100dvh}
-  .hero__sticky{position:relative;height:100dvh}
-}
 
 /* =============================================================
    CHAPTERS (theme grounds)
@@ -339,6 +324,11 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
   padding:0 clamp(1rem,4vw,2rem) clamp(3rem,10vh,6.5rem)}
 /* the final "60% Jamuna" beat sits centred (higher up) and holds there before the section releases */
 .scrolly--map .step:last-child{min-height:170vh;align-items:center;padding-bottom:0}
+/* Desktop: the beats sit on the left third (the Dhaka rings are biased right to match).
+   Narrower widths keep the centred layout — there isn't room to split them left/right. */
+@media (min-width:1024px){
+  .scrolly--map .step{justify-content:flex-start;padding-inline:clamp(2.5rem,6vw,6rem)}
+}
 .glasscard{pointer-events:auto;width:min(31rem,92%);
   background:rgba(18,24,19,.46);border:1px solid rgba(255,255,255,.16);border-radius:16px;
   padding:clamp(1.2rem,3vw,1.75rem) clamp(1.3rem,3.4vw,2rem);color:var(--paper);
@@ -600,11 +590,28 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
 
 .sitefig{position:relative;margin:0;border-radius:var(--r);overflow:hidden;aspect-ratio:1/1;background:var(--ink-2);border:1px solid var(--rule)}
 .sitefig__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.sitefig__cap{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-end;gap:.9rem;
-  padding:1.7rem .95rem .8rem;background:linear-gradient(0deg,rgba(22,28,23,.9),transparent)}
-.sitefig__place{font-family:var(--font-sans);font-size:.74rem;font-weight:500;letter-spacing:.02em;color:rgba(231,229,218,.94)}
-.sitefig__years{font-family:var(--font-mono);font-size:.68rem;font-weight:500;letter-spacing:.03em;color:rgba(231,229,218,.72);
-  white-space:nowrap;margin-left:auto;align-self:flex-end}
+/* place/district now sits top-left, over a soft top scrim */
+.sitefig__place{position:absolute;left:0;right:0;top:0;z-index:2;margin:0;pointer-events:none;
+  padding:.8rem .95rem 1.6rem;text-align:left;
+  font-family:var(--font-sans);font-size:.74rem;font-weight:500;letter-spacing:.02em;color:rgba(231,229,218,.96);
+  background:linear-gradient(180deg,rgba(22,28,23,.82) 0%,rgba(22,28,23,.32) 55%,transparent 100%)}
+
+/* just a scrubber — subtle by default, brighter on hover/focus — to replay and move year-to-year */
+.sitefig__controls{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:center;
+  padding:1.5rem .9rem .9rem;
+  background:linear-gradient(0deg,rgba(22,28,23,.7) 0%,rgba(22,28,23,.26) 55%,transparent 100%)}
+/* range scrubber — the played portion fills clay via --p (set in JS) */
+.sitefig__scrub{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:4px;border-radius:99px;cursor:pointer;
+  opacity:.68;background:linear-gradient(90deg,var(--clay) var(--p,0%),rgba(231,229,218,.26) var(--p,0%));outline:none;
+  transition:opacity .25s var(--ease-out)}
+.sitefig__scrub:hover,.sitefig__scrub:focus-visible{opacity:1}
+.sitefig__scrub::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:13px;height:13px;border-radius:50%;
+  background:#fff;border:0;box-shadow:0 1px 5px rgba(0,0,0,.5);cursor:pointer;transition:transform .14s var(--ease-out)}
+.sitefig__scrub:hover::-webkit-slider-thumb{transform:scale(1.12)}
+.sitefig__scrub:active::-webkit-slider-thumb{transform:scale(1.22)}
+.sitefig__scrub::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#fff;border:0;box-shadow:0 1px 5px rgba(0,0,0,.5);cursor:pointer}
+.sitefig__scrub::-moz-range-track{height:4px;border-radius:99px;background:transparent}
+.sitefig__scrub:focus-visible{opacity:1;outline:2px solid var(--clay);outline-offset:3px}
 
 /* mini bars (front shifts to Ganges) */
 .minibars{margin:1.6rem 0 1.8rem;padding:1.1rem 1.2rem;background:var(--bg-2);border-radius:var(--r);border:1px solid var(--rule)}
@@ -633,9 +640,11 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
   .river:nth-child(even) .river__media{order:0}
   /* shorter image => bigger reading window below it => more time before the dissolve */
   .sitefig{aspect-ratio:4/3;border-radius:0;max-height:40vh;border-left:0;border-right:0}
-  .sitefig__cap{padding:1.3rem .8rem .7rem}
-  .sitefig__place{font-size:.66rem}
-  .sitefig__years{font-size:.6rem}
+  /* the 4:3 crop trims top+bottom of the square frame; bias to the top so the
+     burned-in year label (top-right of the frame) is never cut off */
+  .sitefig__video{object-position:center top}
+  .sitefig__place{font-size:.66rem;padding:.65rem .8rem 1.4rem}
+  .sitefig__controls{padding:1.3rem .75rem .75rem}
   /* ink fade at the image's foot: copy dissolves here as it rises behind the pinned image */
   .river__media::after{content:"";position:absolute;left:0;right:0;top:100%;height:76px;z-index:3;pointer-events:none;
     background:linear-gradient(180deg,var(--ink) 0%,rgba(22,28,23,.94) 32%,rgba(22,28,23,.5) 68%,transparent 100%)}
