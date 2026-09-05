@@ -127,9 +127,6 @@
     var st = s1steps[idx];
     if (st) {
       applyBeat(st.getAttribute('data-scene'), st.getAttribute('data-state'));
-      // auto-drop the figures table on the "60% Jamuna" beat, so it opens on scroll (no click needed)
-      var dt = st.querySelector('.datatable');
-      if (dt && !dt.open) dt.open = true;
     }
   }
   var s1obs = new IntersectionObserver(function (entries) {
