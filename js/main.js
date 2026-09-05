@@ -213,36 +213,102 @@
     }, { threshold: 0.4 }).observe(fig);
   });
 
-  /* ---------- Bholar Basti carousel (Section 2) ---------- */
+  /* ---------- Photo carousel (Section 2 — "From riverbank to slum") ---------- */
   (function initCarousel() {
     var root = document.getElementById('bholaCarousel');
     if (!root) return;
-    var slides = [].slice.call(root.querySelectorAll('.carousel__slide'));
-    var dots = [].slice.call(root.querySelectorAll('.carousel__dot'));
+
+    var dotsContainer = root.querySelector('.carousel__dots');
     var prev = root.querySelector('.carousel__nav--prev');
     var next = root.querySelector('.carousel__nav--next');
-    if (slides.length < 2) return;
+
+    var allSlides = [].slice.call(root.querySelectorAll('.carousel__slide'));
+    var validSlides = [];
+    var dots = [];
     var i = 0, timer = null, inView = false, DELAY = 5200;
 
+    function refreshValidSlides() {
+      validSlides = allSlides.filter(function (slide) {
+        if (slide.dataset.broken === 'true') return false;
+        var img = slide.querySelector('img');
+        if (!img) return false;
+        if (img.complete && img.naturalWidth === 0 && img.src) {
+          slide.dataset.broken = 'true';
+          return false;
+        }
+        return true;
+      });
+    }
+
+    function buildDots() {
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      dots = [];
+
+      validSlides.forEach(function (slide, idx) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel__dot' + (idx === i ? ' is-active' : '');
+        dot.type = 'button';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', idx === i ? 'true' : 'false');
+        dot.setAttribute('aria-label', 'Photograph ' + (idx + 1));
+        dot.addEventListener('click', function () { go(idx); });
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+      });
+
+      var multiple = validSlides.length > 1;
+      if (prev) prev.style.display = multiple ? '' : 'none';
+      if (next) next.style.display = multiple ? '' : 'none';
+      dotsContainer.style.display = multiple ? '' : 'none';
+    }
+
     function show(n) {
-      n = (n + slides.length) % slides.length;
-      slides.forEach(function (s, k) {
-        s.classList.toggle('is-active', k === n);
-        s.setAttribute('aria-hidden', k === n ? 'false' : 'true');
+      if (!validSlides.length) return;
+      n = (n + validSlides.length) % validSlides.length;
+      validSlides.forEach(function (s, k) {
+        var active = k === n;
+        s.classList.toggle('is-active', active);
+        s.setAttribute('aria-hidden', active ? 'false' : 'true');
       });
       dots.forEach(function (d, k) {
-        d.classList.toggle('is-active', k === n);
-        d.setAttribute('aria-selected', k === n ? 'true' : 'false');
+        var active = k === n;
+        d.classList.toggle('is-active', active);
+        d.setAttribute('aria-selected', active ? 'true' : 'false');
       });
       i = n;
     }
+
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function auto() { stop(); if (reduce || !inView) return; timer = setInterval(function () { show(i + 1); }, DELAY); }
+    function auto() {
+      stop();
+      if (reduce || !inView || validSlides.length < 2) return;
+      timer = setInterval(function () { show(i + 1); }, DELAY);
+    }
     function go(n) { show(n); auto(); }
+
+    // Auto-adjust resilience: if an image (like 4.jpg) is missing, auto-skip without breaking
+    allSlides.forEach(function (slide) {
+      var img = slide.querySelector('img');
+      if (!img) return;
+
+      function onErr() {
+        slide.dataset.broken = 'true';
+        slide.style.display = 'none';
+        slide.classList.remove('is-active');
+        refreshValidSlides();
+        buildDots();
+        if (i >= validSlides.length) i = Math.max(0, validSlides.length - 1);
+        show(i);
+      }
+
+      img.addEventListener('error', onErr);
+      if (img.complete && img.naturalWidth === 0 && img.src) onErr();
+    });
 
     if (prev) prev.addEventListener('click', function () { go(i - 1); });
     if (next) next.addEventListener('click', function () { go(i + 1); });
-    dots.forEach(function (d, k) { d.addEventListener('click', function () { go(k); }); });
+
     root.addEventListener('mouseenter', stop);
     root.addEventListener('mouseleave', auto);
     root.addEventListener('focusin', stop);
@@ -252,14 +318,61 @@
       else if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
     });
 
+    // Touch swipe support on mobile
+    var touchStartX = 0, touchEndX = 0;
+    root.addEventListener('touchstart', function (e) {
+      if (e.touches && e.touches.length) {
+        touchStartX = e.touches[0].clientX;
+        touchEndX = touchStartX;
+        stop();
+      }
+    }, { passive: true });
+
+    root.addEventListener('touchmove', function (e) {
+      if (e.touches && e.touches.length) {
+        touchEndX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+
+    root.addEventListener('touchend', function () {
+      var diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) go(i + 1);
+        else go(i - 1);
+      } else {
+        auto();
+      }
+    }, { passive: true });
+
+    refreshValidSlides();
+    buildDots();
     show(0);
+
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (e) {
-        inView = e[0].isIntersecting;
-        if (inView) auto(); else stop();
-      }, { threshold: 0.25 }).observe(root);
-    } else { inView = true; auto(); }
+      new IntersectionObserver(function (entries) {
+        var isIntersecting = entries[0].isIntersecting;
+        if (isIntersecting) {
+          if (!inView) {
+            inView = true;
+            if (validSlides.length > 1 && !reduce) {
+              show(i + 1);
+            }
+            auto();
+          }
+        } else {
+          inView = false;
+          stop();
+        }
+      }, { threshold: 0.2 }).observe(root);
+    } else {
+      inView = true;
+      if (validSlides.length > 1 && !reduce) {
+        show(i + 1);
+      }
+      auto();
+    }
   })();
+
 
   /* ---------- Back to top ---------- */
   (function initToTop() {

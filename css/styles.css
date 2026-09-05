@@ -421,32 +421,38 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
 .carousel__viewport{position:relative;overflow:hidden;border-radius:var(--r);aspect-ratio:16/10;
   background:var(--ink-2);border:1px solid var(--rule);box-shadow:0 30px 70px -34px rgba(0,0,0,.78)}
 .carousel__track{list-style:none;margin:0;padding:0;position:absolute;inset:0}
-.carousel__slide{position:absolute;inset:0;opacity:0;visibility:hidden;
-  transition:opacity .9s var(--ease-out),visibility .9s var(--ease-out)}
-.carousel__slide.is-active{opacity:1;visibility:visible}
+.carousel__slide{position:absolute;inset:0;opacity:0;visibility:hidden;z-index:0;
+  transition:opacity .45s var(--ease-out),visibility .45s var(--ease-out);will-change:opacity}
+.carousel__slide.is-active{opacity:1;visibility:visible;z-index:1}
 .carousel__slide img{width:100%;height:100%;object-fit:cover;object-position:center}
 /* slow Ken Burns on the active slide (off under reduced motion) */
 @media (prefers-reduced-motion:no-preference){
   .carousel__slide img{transform:scale(1.045);transition:transform 7.5s ease-out}
   .carousel__slide.is-active img{transform:scale(1)}
 }
-/* soft floor so the caption reads over any photo */
-.carousel__viewport::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;pointer-events:none;
-  background:linear-gradient(0deg,rgba(11,15,11,.82),transparent)}
-.carousel__cap{position:absolute;left:1rem;bottom:.85rem;z-index:2;margin:0;
-  font-family:var(--font-sans);font-size:.78rem;letter-spacing:.01em;color:rgba(231,229,218,.92)}
+/* soft floor behind the caption on each slide */
+.carousel__slide::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;pointer-events:none;z-index:1;
+  background:linear-gradient(0deg,rgba(11,15,11,.88) 0%,rgba(11,15,11,.45) 60%,transparent 100%)}
+.carousel__cap{position:absolute;left:1.2rem;right:1.2rem;bottom:.95rem;z-index:2;margin:0;
+  font-family:var(--font-serif);font-size:clamp(.98rem,.92rem + .28vw,1.15rem);line-height:1.48;letter-spacing:.01em;color:rgba(238,236,227,.95);
+  opacity:0;transform:translateY(6px);
+  transition:opacity .2s ease-out,transform .2s ease-out;will-change:opacity,transform}
+.carousel__slide.is-active .carousel__cap{
+  opacity:1;transform:translateY(0);
+  transition:opacity .35s var(--ease-out) .06s,transform .35s var(--ease-out) .06s}
 
 .carousel__nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;
-  width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;
-  background:rgba(15,20,16,.5);border:1px solid rgba(255,255,255,.22);color:var(--paper);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 6px 20px rgba(0,0,0,.42);
-  transition:background .25s var(--ease-out),transform .15s var(--ease-out)}
-.carousel__nav:hover{background:rgba(15,20,16,.74)}
-.carousel__nav:active{transform:translateY(-50%) scale(.93)}
+  width:auto;height:auto;padding:.5rem;background:none;border:0;border-radius:0;
+  color:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;opacity:.8;
+  filter:drop-shadow(0 1px 4px rgba(0,0,0,.8)) drop-shadow(0 0 2px rgba(0,0,0,.95));
+  transition:color .2s var(--ease-out),transform .2s var(--ease-out),opacity .2s var(--ease-out)}
+.carousel__nav:hover{opacity:1;color:#fff;transform:translateY(-50%) scale(1.2);background:none}
+.carousel__nav:active{transform:translateY(-50%) scale(.92)}
 .carousel__nav:focus-visible{outline:2px solid var(--clay);outline-offset:2px}
-.carousel__nav--prev{left:.75rem}
-.carousel__nav--next{right:.75rem}
-.carousel__nav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.carousel__nav--prev{left:.5rem}
+.carousel__nav--next{right:.5rem}
+.carousel__nav svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 
 .carousel__dots{display:flex;justify-content:center;gap:.5rem;margin-top:.9rem}
 .carousel__dot{width:9px;height:9px;padding:0;border-radius:50%;cursor:pointer;
@@ -457,9 +463,8 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
 .carousel__dot:focus-visible{outline:2px solid var(--clay);outline-offset:2px}
 @media (max-width:640px){
   .carousel__viewport{aspect-ratio:4/3}
-  .carousel__nav{width:38px;height:38px}
-  .carousel__nav svg{width:17px;height:17px}
-  .carousel__cap{font-size:.72rem}
+  .carousel__nav svg{width:24px;height:24px}
+  .carousel__cap{font-size:.9rem;left:.9rem;right:.9rem;bottom:.75rem}
 }
 
 .prose+.prose{margin-top:0}
@@ -731,6 +736,7 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
 .move p{margin:0;color:var(--fg-dim);font-size:1.1rem;line-height:1.56}
 .prose__kicker{font-size:clamp(1.15rem,1rem + .7vw,1.5rem);line-height:1.45;color:var(--fg);font-style:italic;margin-top:2rem}
 
+
 /* =============================================================
    FOOTER
    ============================================================= */
@@ -805,7 +811,7 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
   .glasscard{background:rgba(18,24,19,.92)}
   .rivchip{background:rgba(20,26,21,.82)}
   .mapblock__side{background:color-mix(in srgb,var(--ink) 96%,transparent)}
-  .map-reset,.mapmenu,.to-top,.carousel__nav{background:color-mix(in srgb,var(--ink) 94%,transparent)}
+  .map-reset,.mapmenu,.to-top{background:color-mix(in srgb,var(--ink) 94%,transparent)}
 }
 
 /* =============================================================
@@ -816,13 +822,13 @@ body[data-scroll="down"] .masthead .tds-mark{height:26px}
    fallback, so nothing becomes unreadable. Desktop keeps the full glass.
    ============================================================= */
 @media (max-width:900px){
-  .glasscard,.rivchip,.mapblock__side,.map-reset,.mapmenu,.to-top,.carousel__nav{
+  .glasscard,.rivchip,.mapblock__side,.map-reset,.mapmenu,.to-top{
     -webkit-backdrop-filter:none;backdrop-filter:none;
   }
   .glasscard{background:rgba(18,24,19,.9)}
   .rivchip{background:rgba(20,26,21,.82)}
   .mapblock__side{background:color-mix(in srgb,var(--ink) 94%,transparent)}
-  .map-reset,.mapmenu,.to-top,.carousel__nav{background:color-mix(in srgb,var(--ink) 92%,transparent)}
+  .map-reset,.mapmenu,.to-top{background:color-mix(in srgb,var(--ink) 92%,transparent)}
   /* film grain uses mix-blend-mode over the playing video — continuous compositing */
   .hero__grain{display:none}
 }
