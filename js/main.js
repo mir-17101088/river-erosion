@@ -866,7 +866,7 @@
       marks.forEach(function (m) { var p = project(m.ll); m.el.setAttribute('cx', p.x.toFixed(1)); m.el.setAttribute('cy', p.y.toFixed(1)); });
 
       var ppm = pxPerMeter();
-      var rUnit = rKm(305) * 1000 * ppm, rGross = rKm(1585) * 1000 * ppm, rNet = rKm(1153) * 1000 * ppm;
+      var rUnit = rKm(305) * 1000 * ppm, rGross = rKm(1584) * 1000 * ppm, rNet = rKm(1153) * 1000 * ppm;
 
       // Dhaka comparison: rings concentric on the city, drawn to the map's true scale.
       // Seen once the camera has flown in and centred Dhaka, so the 6× ring visibly dwarfs it.
@@ -904,7 +904,7 @@
       var size = map.getSize();
       var minDim = Math.min(size.x, size.y);
       var lat = DHAKA[0] * Math.PI / 180;
-      var grossRm = rKm(1585) * 1000;               // 6× ring radius, metres
+      var grossRm = rKm(1584) * 1000;               // 6× ring radius, metres
       var wantRpx = 0.19 * minDim;                  // frame it at ~38% of the min viewport dimension
       var mPerPx = grossRm / wantRpx;
       var z = Math.log(40075016.686 * Math.cos(lat) / (256 * mPerPx)) / Math.LN2;
