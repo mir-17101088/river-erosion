@@ -277,6 +277,7 @@
         d.setAttribute('aria-selected', active ? 'true' : 'false');
       });
       i = n;
+      syncLightbox();
     }
 
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
@@ -287,10 +288,68 @@
     }
     function go(n) { show(n); auto(); }
 
-    // Auto-adjust resilience: if an image (like 4.jpg) is missing, auto-skip without breaking
+    /* Lightbox Modal Controller */
+    var lightbox = document.getElementById('carouselLightbox');
+    var lbImg = lightbox ? lightbox.querySelector('.carousel-lightbox__img') : null;
+    var lbCap = lightbox ? lightbox.querySelector('.carousel-lightbox__cap') : null;
+    var lbClose = lightbox ? lightbox.querySelector('.carousel-lightbox__close') : null;
+    var lbPrev = lightbox ? lightbox.querySelector('.carousel-lightbox__nav--prev') : null;
+    var lbNext = lightbox ? lightbox.querySelector('.carousel-lightbox__nav--next') : null;
+    var expandBtn = root.querySelector('.carousel__expand');
+    var isLbOpen = false;
+
+    function syncLightbox() {
+      if (!isLbOpen || !lightbox || !validSlides[i]) return;
+      var currentSlide = validSlides[i];
+      var img = currentSlide.querySelector('img');
+      var cap = currentSlide.querySelector('.carousel__cap');
+      if (lbImg && img) {
+        lbImg.src = img.src;
+        lbImg.alt = img.alt || '';
+      }
+      if (lbCap) {
+        var txt = cap ? cap.textContent.trim() : '';
+        lbCap.textContent = txt;
+        lbCap.style.display = txt ? '' : 'none';
+      }
+    }
+
+    function openLightbox(idx) {
+      if (!lightbox) return;
+      if (typeof idx === 'number' && idx >= 0 && idx < validSlides.length) {
+        show(idx);
+      }
+      isLbOpen = true;
+      lightbox.removeAttribute('hidden');
+      void lightbox.offsetWidth;
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      stop();
+      syncLightbox();
+      if (lbClose) lbClose.focus();
+    }
+
+    function closeLightbox() {
+      if (!isLbOpen || !lightbox) return;
+      isLbOpen = false;
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+      setTimeout(function () {
+        if (!isLbOpen) lightbox.setAttribute('hidden', '');
+      }, 300);
+      if (inView) auto();
+    }
+
+    // Auto-adjust resilience & click-to-fullscreen
     allSlides.forEach(function (slide) {
       var img = slide.querySelector('img');
       if (!img) return;
+
+      img.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var validIdx = validSlides.indexOf(slide);
+        if (validIdx !== -1) openLightbox(validIdx);
+      });
 
       function onErr() {
         slide.dataset.broken = 'true';
@@ -304,6 +363,61 @@
 
       img.addEventListener('error', onErr);
       if (img.complete && img.naturalWidth === 0 && img.src) onErr();
+    });
+
+    if (expandBtn) {
+      expandBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openLightbox(i);
+      });
+    }
+
+    if (lbClose) lbClose.addEventListener('click', closeLightbox);
+    if (lbPrev) lbPrev.addEventListener('click', function (e) { e.stopPropagation(); go(i - 1); });
+    if (lbNext) lbNext.addEventListener('click', function (e) { e.stopPropagation(); go(i + 1); });
+
+    if (lightbox) {
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox || e.target.classList.contains('carousel-lightbox__inner')) {
+          closeLightbox();
+        }
+      });
+
+      var lbTouchStartX = 0, lbTouchEndX = 0;
+      lightbox.addEventListener('touchstart', function (e) {
+        if (e.touches && e.touches.length) {
+          lbTouchStartX = e.touches[0].clientX;
+          lbTouchEndX = lbTouchStartX;
+        }
+      }, { passive: true });
+
+      lightbox.addEventListener('touchmove', function (e) {
+        if (e.touches && e.touches.length) {
+          lbTouchEndX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      lightbox.addEventListener('touchend', function () {
+        var diff = lbTouchStartX - lbTouchEndX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) go(i + 1);
+          else go(i - 1);
+        }
+      }, { passive: true });
+    }
+
+    window.addEventListener('keydown', function (e) {
+      if (!isLbOpen) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeLightbox();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        go(i - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        go(i + 1);
+      }
     });
 
     if (prev) prev.addEventListener('click', function () { go(i - 1); });

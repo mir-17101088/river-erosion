@@ -366,13 +366,18 @@
                 <figcaption class="carousel__cap">In Kathuria village of Shariatpur's Jazira upazila, geobags are the
                   last line of defense against the raging Padma.</figcaption>
               </li>
-              <li class="carousel__slide" aria-roledescription="slide" aria-label="Photograph 6" aria-hidden="true">
+              <li class="carousel__slide" aria-roledescription="slide" aria-label="Photograph 7" aria-hidden="true">
                 <img src="assets/7.jpg" alt="Photograph 7" decoding="async" loading="lazy" />
                 <figcaption class="carousel__cap">Bangladesh Water Development Board workers desperately trying to stem
                   river erosion in Kathuria village of Shariatpur's Jazira upazila.</figcaption>
               </li>
             </ul>
 
+            <button class="carousel__expand" type="button" aria-label="View photograph fullscreen" title="View fullscreen">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </button>
             <button class="carousel__nav carousel__nav--prev" type="button" aria-label="Previous photograph">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M15 5l-7 7 7 7" />
@@ -386,6 +391,34 @@
           </div>
 
           <div class="carousel__dots" role="tablist" aria-label="Select a photograph"></div>
+
+          <!-- Fullscreen Lightbox Modal -->
+          <div id="carouselLightbox" class="carousel-lightbox" role="dialog" aria-modal="true" aria-label="Fullscreen photograph viewer" hidden>
+            <div class="carousel-lightbox__inner">
+              <button type="button" class="carousel-lightbox__close" aria-label="Close fullscreen view" title="Close (Esc)">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+
+              <button type="button" class="carousel-lightbox__nav carousel-lightbox__nav--prev" aria-label="Previous photograph">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M15 5l-7 7 7 7" />
+                </svg>
+              </button>
+
+              <figure class="carousel-lightbox__media">
+                <img class="carousel-lightbox__img" src="" alt="" />
+                <figcaption class="carousel-lightbox__cap"></figcaption>
+              </figure>
+
+              <button type="button" class="carousel-lightbox__nav carousel-lightbox__nav--next" aria-label="Next photograph">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </figure>
 
