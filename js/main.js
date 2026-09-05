@@ -888,7 +888,7 @@
         var p = project(SHARE_CENTER[k]);
         setCircle(circles[k], p, maxR * Math.sqrt(SHARE_HA[k] / maxHa));
       });
-      placeLabel(labels.jamuna, project(SHARE_CENTER.jamuna), '59%', 'Jamuna', 'center', 0);
+      placeLabel(labels.jamuna, project(SHARE_CENTER.jamuna), '60%', 'Jamuna', 'center', 0);
       placeLabel(labels.ganges, project(SHARE_CENTER.ganges), '19%', 'Ganges', 'center', 0);
       placeLabel(labels.padma, project(SHARE_CENTER.padma), '21%', 'Padma', 'center', 0);
     }
