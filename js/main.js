@@ -610,7 +610,7 @@
       marks.forEach(function (m) { var p = project(m.ll); m.el.setAttribute('cx', p.x.toFixed(1)); m.el.setAttribute('cy', p.y.toFixed(1)); });
 
       var ppm = pxPerMeter();
-      var rUnit = rKm(270) * 1000 * ppm, rGross = rKm(1585) * 1000 * ppm, rNet = rKm(1153) * 1000 * ppm;
+      var rUnit = rKm(305) * 1000 * ppm, rGross = rKm(1585) * 1000 * ppm, rNet = rKm(1153) * 1000 * ppm;
 
       // Dhaka comparison: rings concentric on the city, drawn to the map's true scale.
       // Seen once the camera has flown in and centred Dhaka, so the 6× ring visibly dwarfs it.
@@ -620,10 +620,10 @@
       setCircle(circles.unit, dc, rUnit);
       var net2 = (sceneNow === 'dhaka' && stateNow === '2');
       placeLabel(labels.gross, dc,
-        net2 ? '4× Dhaka, net' : '6× Dhaka',
+        net2 ? '4× Dhaka, net' : '5× Dhaka',
         net2 ? '1,153 square kilometres lost after the chars return' : '1,585 square kilometres eroded in fifty years',
         'above', rGross, { bigSize: 21, subSize: 15.5, gap: 26 });
-      placeLabel(labels.dhaka, dc, 'Dhaka', '270 km²', 'center', 0);
+      placeLabel(labels.dhaka, dc, 'Dhaka', '305 km²', 'center', 0);
 
       // Share proportional circles (area ∝ hectares eroded), near each river, clear of the card
       var maxR = Math.min(size.x, size.y) * 0.15;
