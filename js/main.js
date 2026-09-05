@@ -277,11 +277,21 @@
       syncLightbox();
     }
 
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function auto() {
+    function stop() {
+      if (timer) {
+        clearTimeout(timer);
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+    function auto(customDelay) {
       stop();
       if (reduce || !inView || validSlides.length < 2) return;
-      timer = setInterval(function () { show(i + 1); }, DELAY);
+      var d = (typeof customDelay === 'number') ? customDelay : DELAY;
+      timer = setTimeout(function () {
+        show(i + 1);
+        auto();
+      }, d);
     }
     function go(n) { show(n); auto(); }
 
@@ -465,10 +475,7 @@
         if (isIntersecting) {
           if (!inView) {
             inView = true;
-            if (validSlides.length > 1 && !reduce) {
-              show(i + 1);
-            }
-            auto();
+            auto(3800);
           }
         } else {
           inView = false;
@@ -477,10 +484,7 @@
       }, { threshold: 0.2 }).observe(root);
     } else {
       inView = true;
-      if (validSlides.length > 1 && !reduce) {
-        show(i + 1);
-      }
-      auto();
+      auto(3800);
     }
   })();
 
